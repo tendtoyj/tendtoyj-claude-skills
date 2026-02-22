@@ -1,0 +1,23 @@
+{
+  "name": "tendtoyj-claude-skills",
+  "owner": {
+    "name": "Yoojung Kim"
+  },
+  "metadata": {
+    "description": "Claude Code skill plugins by tendtoyj — marketing, productivity, and more.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "vibe-marketing",
+      "source": "./plugins/vibe-marketing",
+      "description": "10 marketing skills: orchestrator, brand voice, positioning angles, direct response copy, lead magnet, email sequences, keyword research, SEO content, newsletter, and content atomizer.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Yoojung Kim"
+      },
+      "keywords": ["marketing", "copywriting", "seo", "brand-voice", "email-marketing", "content-strategy"],
+      "category": "marketing"
+    }
+  ]
+}
