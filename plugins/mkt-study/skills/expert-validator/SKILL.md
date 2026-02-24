@@ -69,6 +69,7 @@ Collect conversationally. Most inputs come from research-memory — just confirm
 | Validation mode | YES | Full / Focused / Re-Validation |
 | Focus question | Focused mode only | The specific question or decision to validate |
 | Business context | Optional | Current stage, resource constraints, timeline — sharpens agent evaluations |
+| Language | Optional | 결과물 작성 언어 (default: English) |
 
 **If this is Full Validation**, confirm: "I'll have 3 expert agents review your entire strategy brief. Proceed?"
 
@@ -227,6 +228,7 @@ Answer these 5 questions:
 - Reference actual data from the briefing (market numbers, competitor names, customer language)
 - If you disagree with a recommendation, explain WHY with evidence
 - Do NOT hedge everything — take clear positions
+- Write your evaluation in [user's specified language]. If no language specified, use English.
 - Keep total output under 400 words
 ```
 
@@ -291,6 +293,8 @@ Review the existing Strategic Recommendations in `strategy-brief.md`:
 **Goal**: Write expert sections to `strategy-brief.md` and log execution.
 
 #### 4a. Enrich strategy-brief.md
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Add or update these sections with `[expert-validator]` tags. **Do NOT delete any existing content** — only add/update expert sections.
 

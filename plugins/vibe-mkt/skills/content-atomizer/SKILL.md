@@ -66,6 +66,7 @@ Before starting, collect:
 2. **Content purpose** — What should these social posts achieve? Awareness / Lead capture / Community engagement / Direct conversion? (Shapes CTA selection.)
 3. **Platform priority** (Mode 2 only) — Which 1-2 platforms? LinkedIn / Twitter-X / Instagram / Email / YouTube?
 4. **Performance context** (Mode 4 only, optional) — What worked? "This LinkedIn post got 50K impressions" helps identify which hooks to double down on.
+5. **Language** (Optional) — 결과물 작성 언어. Default: English. 원본 콘텐츠와 다른 언어 시장용 콘텐츠 생성 시 유용합니다.
 
 If brand memory covers audience and voice, don't re-ask. Confirm and move on.
 
@@ -474,6 +475,8 @@ Show up when they search. Follow up fast. Stop chasing trends."
 ## Saving & Handoff
 
 After delivering all atomized content:
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 1. Save the full output folder to the project directory
 2. Include the posting checklist with recommended scheduling

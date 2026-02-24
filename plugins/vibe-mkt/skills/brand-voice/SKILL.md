@@ -139,6 +139,9 @@ Probe for:
 
 This question is optional — skip if the user seems fatigued, and infer defaults instead.
 
+### Question 9 — Output Language
+"What language should the voice profile be written in? (e.g., English, Korean, 한국어, etc.) Default: English."
+
 After collecting all answers, generate the Voice Profile.
 
 ---
@@ -267,6 +270,8 @@ Aim for 5-8 items per list, drawn directly from the analysis or questionnaire an
 ## Saving to Brand Memory
 
 After the user approves the voice profile:
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 1. Write the complete profile to `brand-memory/voice-profile.md`
 2. If `brand-memory/audience.md` is empty and audience information was gathered, offer to populate it too

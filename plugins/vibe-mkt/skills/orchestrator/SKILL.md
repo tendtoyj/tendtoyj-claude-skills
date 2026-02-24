@@ -409,6 +409,8 @@ Checkpoints are recommended, not required — the user can always skip.
 
 Every Orchestrator response follows this structure:
 
+> **Language**: 사용자가 언어를 지정하면 대시보드 및 안내 텍스트를 해당 언어로 출력합니다. 개별 스킬 호출 시 동일한 언어 설정을 전달합니다.
+
 ```
 ## Current Status
 [Gap detection results — what you have / what you're missing]

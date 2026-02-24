@@ -67,6 +67,7 @@ Recommended (upload at least 3):
 Also tell me:
 - Brand name: ___
 - Industry/category (optional): ___
+- Output language (optional, default: English): ___
 ```
 
 **Handling edge cases**:
@@ -259,6 +260,8 @@ When in **Update** mode:
 - Add new observations from fresh assets alongside existing content
 - If new findings conflict with existing guidelines, present both and ask the user which to keep
 - Never silently overwrite — always note what changed
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 ### Log the execution
 

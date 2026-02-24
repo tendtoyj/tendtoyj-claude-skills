@@ -75,6 +75,9 @@ Then ask the user:
 - If yes, these feed into Step 3 for pattern extraction.
 - If no, that's fine — we'll build from proven universals.
 
+**"What language should the frameworks be written in?"** (Default: English)
+- This determines the language for framework descriptions, skeleton examples, and selection guide text.
+
 ### Step 2 — Select and Customize Core Frameworks
 
 Choose 3-4 frameworks from the catalog below based on brand fit. The selection criteria:
@@ -162,6 +165,8 @@ For each framework, also note:
 ### Step 5 — Save and Log
 
 Write the complete output to `creative-memory/storytelling-frameworks.md` using the schema below.
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Add a log entry to `creative-memory/creative-log.md`:
 

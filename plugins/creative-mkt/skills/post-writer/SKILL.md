@@ -93,6 +93,7 @@ Collect before starting:
 | Framework | Optional | Specific framework from storytelling-frameworks.md. Auto-match if omitted |
 | Trend connection | Optional | Link to a specific trend from trend-angles.md |
 | Tone shift | Optional | Adjust from brand default (e.g., "more casual", "more urgent") |
+| Language | Optional | 포스트 작성 언어 (default: English) |
 
 **When called from series-planner:** Most fields arrive pre-filled (framework, hook direction, visual direction, CTA type). Skip the gathering step — go straight to Step 1 with the provided brief.
 
@@ -219,6 +220,8 @@ If any check fails, fix it. Don't present a post that fails quality audit.
 ### Step 5: Save + Log
 
 Save the post to: `[project]/posts/[platform]-[topic-slug]-[YYYY-MM-DD].md`
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Use the output template below.
 

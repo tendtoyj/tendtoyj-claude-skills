@@ -64,6 +64,7 @@ Before starting, collect (or load from brand memory):
 4. **Main competitors?** — 2-3 companies to benchmark against. Who shows up when your audience searches?
 5. **Goal?** — What does traffic need to do: generate leads, drive sales, build authority, or grow brand awareness? (Filters keyword intent.)
 6. **Market scope?** — Local (city/region) vs. national vs. global? (Critical for programmatic SEO patterns.)
+7. **Language** (Optional) — 결과물 작성 언어. Default: English.
 
 If brand memory covers items 1-2, confirm and move on. Don't re-ask what's already documented.
 
@@ -405,6 +406,8 @@ Format: Local SEO guide | Effort: Medium
 ## Saving & Handoff
 
 After completing keyword research:
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 1. **Save outputs** to the project folder:
    - Keyword list: `keyword-opportunities.md`

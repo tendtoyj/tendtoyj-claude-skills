@@ -62,6 +62,7 @@ After the memory auto-load, gather these from the user:
 | Series length | Number of posts or time span (e.g. 7 posts, 2 weeks) |
 | Target platform | Primary channel (Instagram, LinkedIn, Twitter/X, etc.) |
 | Campaign goal | What the series should achieve (awareness, conversion, community) |
+| Language | Optional | 캠페인 콘텐츠 작성 언어 (default: English). post-writer에 전달됩니다. |
 
 Optional inputs: specific framework preferences, start date / posting frequency, cross-platform notes.
 
@@ -129,6 +130,8 @@ Create the schedule with:
 ### Step 5: Save + Log
 
 Save the campaign plan to: `[project]/campaigns/[theme]-series-plan.md`
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Use the output template below. The file should be self-contained — anyone reading it should understand the full campaign without needing to ask questions.
 

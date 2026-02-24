@@ -57,6 +57,7 @@ Before writing, collect (or load from brand memory):
 3. **Positioning angle** — Load from `positioning.md` or ask: "What makes this different from alternatives?"
 4. **Market awareness level** — Assess or ask (see Schwartz framework below). This determines the entire copy strategy.
 5. **Social proof available?** — Testimonials, stats, logos, case studies. "Share what you have; I'll work with it."
+6. **Language** (Optional) — 결과물 작성 언어. Default: English.
 
 If brand memory files cover items 2-3, confirm them and move on. Don't re-ask what's already documented.
 
@@ -361,6 +362,8 @@ and let you pick which jobs to take.
 ## Saving & Handoff
 
 After delivering copy:
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 1. Save to the project folder as `[page-name]-copy.md` (e.g., `landing-page-copy.md`)
 2. If the user has Frontend Design skill available, suggest:

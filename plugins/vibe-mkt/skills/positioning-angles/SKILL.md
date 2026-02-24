@@ -63,6 +63,7 @@ Ask the user for these 4 essentials. If research data was loaded, pre-fill what 
 - Current positioning (if they have one and want to improve it)
 - Price range / business model
 - Unique process, technology, or methodology
+- Output language (default: English)
 
 Collect all inputs before proceeding. Do not start generating angles mid-conversation.
 
@@ -263,6 +264,8 @@ Before finalizing, check the selected angles against these common mistakes:
 ---
 
 ## Output Format
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Present the final angles to the user, then save to `brand-memory/positioning.md` in this format:
 

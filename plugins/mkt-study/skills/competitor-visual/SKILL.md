@@ -58,6 +58,7 @@ Collect conversationally. Most inputs auto-load from `competitive-intel.md`.
 | Capture scope | Optional | Landing page only (default) / Include features + pricing / Full site |
 | Focus area | Optional | Color, typography, layout, mobile, or all (default) |
 | Own site URL | Optional | If provided, adds self-vs-competitor comparison |
+| Language | Optional | 결과물 작성 언어 (default: English) |
 
 **Show the extracted URL list to the user and confirm before proceeding.**
 
@@ -205,6 +206,8 @@ Then build the **cross-competitor comparison**:
 - **ONLY write to** sections tagged `[competitor-visual]`:
   - `## Design Patterns & Visual Audit [competitor-visual]`
 - **Append to** `## Gaps & Opportunities` — add design-related opportunities with `[competitor-visual]` tag, keep existing items
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다. 추출된 CSS 데이터(HEX, font name 등)는 원래 형태 유지. 분석 텍스트만 지정 언어로 작성.
 
 #### 4b. Write Design Patterns Section
 

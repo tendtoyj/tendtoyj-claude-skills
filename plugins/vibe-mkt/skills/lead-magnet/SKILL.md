@@ -59,6 +59,7 @@ Before starting, collect (or load from brand memory):
 2. **Who's the target audience?** — Specific person. Load from `audience.md` or ask.
 3. **What's the paid offer?** — The product/service this lead magnet bridges to. What do you ultimately want them to buy?
 4. **Existing content?** — Blog posts, frameworks, data, expertise that could become a lead magnet. "What do you already know that your audience needs?"
+5. **Language** (Optional) — 결과물 작성 언어. Default: English.
 
 If brand memory covers items 1-2, confirm and move on. Don't re-ask what's already documented.
 
@@ -389,6 +390,8 @@ natural demand for the full system.
 ## Saving & Handoff
 
 After building:
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 1. **Save the deliverable** to the project folder:
    - HTML tools: `[name]-tool.html` (e.g., `marketing-audit-tool.html`)

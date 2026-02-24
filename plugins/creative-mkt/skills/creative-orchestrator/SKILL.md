@@ -227,6 +227,8 @@ Continue? Say "[NEXT_SKILL_NAME] 실행해줘"
 
 Summarize what was built + suggest next options: create more posts, expand to another platform, plan a campaign series, or atomize for distribution via vibe-mkt's content-atomizer.
 
+> **Language**: 사용자가 언어를 지정하면 대시보드 및 안내 텍스트를 해당 언어로 출력합니다. 개별 스킬 호출 시 동일한 언어 설정을 전달합니다.
+
 ---
 
 ## Skill Quick-Reference

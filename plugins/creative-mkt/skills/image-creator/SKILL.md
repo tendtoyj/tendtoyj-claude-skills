@@ -58,6 +58,7 @@ Collect from the user:
 | Style override | No | Override visual-guidelines if a different look is needed |
 | Include/exclude elements | No | "no people", "include text overlay", "abstract only" |
 | Number of variations | No | Default: 2–3 images. Max: 4 per batch |
+| Language | Optional | 텍스트 오버레이 언어 (default: English). 이미지 내 텍스트에 적용 |
 
 If the user provides a post-writer output file, extract:
 - The post copy (for message analysis)
@@ -153,6 +154,8 @@ This is the core value of the skill. Build the generation prompt using a structu
 **Composition** — Use Step 2's platform-specific composition guidance
 
 **Platform Specs** — Aspect ratio from Step 2
+
+**Text Overlay Language** — If the user specified a language, all text overlays in the image (headlines, captions, CTAs) must be written in that language. If no language was specified, default to English.
 
 **Negative Prompt** — Always include:
 - Universal: `blurry, low quality, watermark, distorted text, artifacts, oversaturated`

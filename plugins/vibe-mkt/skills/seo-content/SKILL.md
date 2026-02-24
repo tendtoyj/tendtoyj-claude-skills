@@ -68,6 +68,7 @@ Before writing, collect (or load from brand memory):
 6. **Target word count** (optional) — If not specified, SERP analysis will recommend based on competition.
 7. **For Refresh mode** — The existing content URL or text to update.
 8. **For Programmatic mode** — The pattern from Keyword Research (e.g., "[service] marketing in [city]") + list of variables.
+9. **Language** (Optional) — 콘텐츠 작성 언어. Default: English. SEO 콘텐츠는 타겟 시장의 언어로 작성해야 검색 노출에 유리합니다.
 
 If brand memory and keyword research output cover most of these, confirm and move on. Don't re-ask what's already documented.
 
@@ -477,6 +478,8 @@ agency retainer that produces nothing but reports. Here's what actually works.
 ## Saving & Handoff
 
 After delivering content:
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 1. Save to the project folder as `[keyword-slug]-content.md` (e.g., `hvac-marketing-phoenix-content.md`)
 2. Include the Human Checkpoint as a separate section at the bottom or as a companion file

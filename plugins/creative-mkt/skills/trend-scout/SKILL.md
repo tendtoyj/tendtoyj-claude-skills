@@ -56,6 +56,7 @@ Collect from the user conversationally. Do NOT dump a form — ask naturally.
 | Target audience | YES | Who are we creating content for? |
 | Focus keywords | Optional | Specific topics or angles to explore |
 | Platform priority | Optional | Which platforms matter most? |
+| Language | Optional | 결과물 작성 언어 (default: English) |
 
 **If brand-memory/ exists**, pre-fill category and audience from `positioning.md` — ask user to confirm or correct.
 
@@ -202,6 +203,8 @@ Use the exact schema below:
 
 **For Refresh mode**: Do NOT overwrite the entire file. Update the Current Trends table (replace stale trends, add new ones). Keep Evergreen Angles section intact unless explicitly adding new ones. Append `> Refreshed: [date]` below the header.
 
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
+
 #### 5b. Update creative-log.md
 
 Append one row:
@@ -229,6 +232,7 @@ Append one row:
 - Ask for estimated trend lifespan — crucial for urgency tagging
 - One discovery query + one verification query per run (minimize API calls)
 - For Refresh: provide existing trend list so Perplexity can identify what's new vs. stale
+- Language: 사용자가 English 외 언어를 지정한 경우, 모든 query 끝에 "Respond in [language]."를 추가
 
 ---
 

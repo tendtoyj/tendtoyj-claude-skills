@@ -61,6 +61,7 @@ Before starting, collect (or load from brand memory):
 4. **What's the paid offer?** — The product/service the sequence ultimately bridges to.
 5. **Existing assets?** — Case studies, blog posts, testimonials, videos available for email content.
 6. **Email count / timing preference?** — (Optional) If not specified, use defaults for the sequence type.
+7. **Language** (Optional) — 결과물 작성 언어. Default: English.
 
 If brand memory covers items 3-4, confirm and move on. Don't re-ask what's already documented.
 
@@ -435,6 +436,8 @@ When no email marketing tool is integrated, provide a copy-paste-ready setup gui
 ## Saving & Handoff
 
 After delivering the sequence:
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 1. **Save to project folder**: `[sequence-type]-email-sequence.md` (e.g., `welcome-email-sequence.md`)
 2. **Update campaign tracking**: If `brand-memory/campaigns.md` exists, log the sequence with trigger, goal, email count, and launch date.

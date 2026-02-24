@@ -63,6 +63,7 @@ Collect conversationally. Most inputs come from `competitive-intel.md` — just 
 | Competitor URLs | Conditional | Only if not in `competitive-intel.md` |
 | Analysis focus | Optional | Specific area: pricing, messaging, CTAs, all |
 | Our own URL | Optional | Enables direct comparison |
+| Language | Optional | 결과물 작성 언어 (default: English) |
 
 **If competitive-intel.md has URLs**, show the list and ask: "I found these competitors. Should I analyze all of them, or specific ones?"
 
@@ -174,6 +175,8 @@ Look for:
 **Goal**: Write all findings to `competitive-intel.md` as enrichment and log the execution.
 
 #### 5a. Enrich competitive-intel.md
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다. Firecrawl에서 스크랩한 원문(headline, CTA 등)은 원래 언어 유지. 분석·패턴·갭 텍스트만 지정 언어로 작성.
 
 **CRITICAL**: Do NOT delete or modify any `[competitor-finder]` or `[competitor-visual]` tagged sections. Only add/update `[competitor-analyzer]` sections.
 

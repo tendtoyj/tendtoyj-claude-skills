@@ -68,6 +68,7 @@ This skill requires **minimal user input** — research-memory/ is the primary d
 | Business goal | Optional | Current priority (growth, market entry, pivot, retention) — shapes recommendation priority |
 | Analysis focus | Optional | Specific cross-analysis area (e.g., "pricing vs competitors", "messaging-market fit") |
 | Constraints | Optional | Budget, team size, timeline — grounds Next Steps in reality |
+| Language | Optional | 결과물 작성 언어 (default: English) |
 
 **If brand-memory/ exists**, auto-extract business context — no need to ask.
 
@@ -219,6 +220,8 @@ For each Next Step:
 **Goal**: Write all findings to `research-memory/strategy-brief.md` and log the execution.
 
 #### 5a. Write strategy-brief.md
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Use the exact schema from `references/strategy-brief-schema.md`. Key rules:
 - Tag every authored section with `[research-synthesizer]`
