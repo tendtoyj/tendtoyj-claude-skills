@@ -66,12 +66,28 @@ Collect from the user conversationally. Do NOT dump a form — ask naturally.
 | Business model | Optional | SaaS, service, e-commerce, education, etc. — frames pricing comparison |
 | Geography / Market scope | Optional | Global or specific region — bounds competitor search |
 | Focus area | Optional | Pricing comparison, messaging differentiation, channel strategy, etc. |
+| Research intensity | Optional | "light" / "standard" / "deep" (default: deep) — 리서치 깊이와 수집량 조절 |
+| Language | Optional | 결과물 작성 언어 (default: English) |
 
 **If brand-memory/ exists**, pre-fill business description, positioning, and target audience from `voice-profile.md` and `positioning.md` — ask user to confirm or correct.
 
 **If market-landscape.md exists**, show the market category and structure as context: "Based on your market scan, I'll search for competitors in [category]. Does this look right?"
 
 **If this is a Refresh**, show the current competitive set and ask: "Any new competitors to add? Or specific profiles to update?"
+
+---
+
+## Research Intensity
+
+사용자가 명시적으로 요청하면 리서치 깊이를 조절합니다. 지정하지 않으면 `deep` (기본값).
+
+| Level | search_context_size | 수집량 | 용도 |
+|-------|--------------------|----|------|
+| `light` | low | 축소 (~50%) | 빠른 감 잡기 |
+| `standard` | medium | 보통 (~75%) | 일반 리서치 |
+| `deep` | high | 전체 (100%) | 본격 리서치 |
+
+> "가볍게", "빠르게", "간단히" → light / "보통으로", "적당히" → standard / 별도 지정 없음 → deep
 
 ---
 
@@ -119,7 +135,9 @@ For EACH competitor, provide:
 ```
 
 **Parameters**:
-- `search_context_size`: "high"
+- `search_context_size`: Research Intensity에 따라 결정 (light→"low" / standard→"medium" / deep→"high")
+
+**경쟁사 수집 목표**: light=3-5 direct + 1-2 indirect / standard=4-6 direct + 2 indirect / deep=5-8 direct + 2-3 indirect
 
 **If user provided known competitors**: Include them in the query as starting points and ask Perplexity to validate + expand: "I already know about [names]. Who else competes in this space?"
 
@@ -149,7 +167,9 @@ Cite their website or recent coverage as source for each data point.
 ```
 
 **Parameters**:
-- `search_context_size`: "high"
+- `search_context_size`: Research Intensity에 따라 결정 (light→"low" / standard→"medium" / deep→"high")
+
+> light일 경우 상위 경쟁사 위주로 프로필을 작성합니다 (전체 대상이 아닌 핵심 경쟁사 중심).
 
 **If competitors are numerous (8+)**: Split into two queries to avoid shallow coverage.
 
@@ -185,7 +205,7 @@ Then identify:
 
 **Parameters**:
 - `search_recency_filter`: "month"
-- `search_context_size`: "high"
+- `search_context_size`: Research Intensity에 따라 결정 (light→"low" / standard→"medium" / deep→"high")
 
 **Output**: Channel Activity Matrix + Gaps & Opportunities section.
 
@@ -196,6 +216,8 @@ Then identify:
 **Goal**: Write all findings to `research-memory/competitive-intel.md` and log execution.
 
 #### 5a. Write competitive-intel.md
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Use the **exact schema** in `references/competitive-intel-schema.md`. Key rules:
 - Tag every section you write with `[competitor-finder]`
@@ -220,7 +242,7 @@ Append one row:
 | `perplexity_search` | Find specific URLs/sources | Only if competitor website URLs need verification |
 
 **Common parameters**:
-- `search_context_size`: Always `"high"` — competitive research needs broad context
+- `search_context_size`: Research Intensity 레벨에 따라 결정 — 위 Research Intensity 테이블 참조
 - `search_recency_filter`: `"month"` for Step 4 (latest channel activity), default for Steps 2-3
 
 **Query best practices**:
@@ -229,6 +251,7 @@ Append one row:
 - Ask for source citations for positioning claims
 - One topic per query: Don't combine competitor identification + profiling in one call
 - For 8+ competitors, split profiling into two queries to ensure depth
+- Language: 사용자가 English 외 언어를 지정한 경우, 모든 query 끝에 "Respond in [language]."를 추가
 
 ---
 
@@ -236,8 +259,8 @@ Append one row:
 
 Before saving, verify:
 
-- [ ] At least 5 direct competitors identified (with URLs)
-- [ ] At least 2 indirect competitors identified (with URLs)
+- [ ] Direct 경쟁사 최소 3개 (light) ~ 8개 (deep) 식별 (with URLs)
+- [ ] Indirect 경쟁사 최소 1개 (light) ~ 3개 (deep) 식별 (with URLs)
 - [ ] Every competitor has: positioning, value props, target audience, pricing
 - [ ] Channel Activity Matrix covers at least 4 of 5 channel types
 - [ ] Gaps & Opportunities section has at least one finding per sub-section

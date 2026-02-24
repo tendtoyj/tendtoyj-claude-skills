@@ -62,13 +62,28 @@ Collect from the user conversationally. Do NOT dump a form — ask naturally.
 | Competitor names | Optional | For "[competitor] review" and "[competitor] vs" searches |
 | Known communities | Optional | Reddit subs, Discord servers, forums the user already knows |
 | Collection focus | Optional | Specific category to prioritize (Pain only, Triggers only, etc.) |
-| Language / Region | Optional | English / Korean / other — determines search language |
+| Language | Optional | 결과물 작성 언어 (default: English). 검색 언어도 이에 따라 결정 |
+| Research intensity | Optional | "light" / "standard" / "deep" (default: deep) — 리서치 깊이와 수집량 조절 |
 
 **If customer-insight.md exists**, pre-fill category, segments, pain points, and communities — ask user to confirm or add.
 
 **If competitive-intel.md exists**, extract competitor names automatically — show user and ask if any should be excluded.
 
 **If this is a Refresh**, show current Language Bank summary (count per category) and ask: "Which category needs more expressions? Any new communities to mine?"
+
+---
+
+## Research Intensity
+
+사용자가 명시적으로 요청하면 리서치 깊이를 조절합니다. 지정하지 않으면 `deep` (기본값).
+
+| Level | search_context_size | 수집량 | 용도 |
+|-------|--------------------|----|------|
+| `light` | low | 축소 (~50%) | 빠른 감 잡기 |
+| `standard` | medium | 보통 (~75%) | 일반 리서치 |
+| `deep` | high | 전체 (100%) | 본격 리서치 |
+
+> "가볍게", "빠르게", "간단히" → light / "보통으로", "적당히" → standard / 별도 지정 없음 → deep
 
 ---
 
@@ -128,7 +143,9 @@ Find 10-15 distinct pain expressions from [primary segment] perspective.
 Include complaints about: [competitor list]
 ```
 
-**Parameters**: `search_context_size: "high"`, `search_recency_filter: "year"`
+**Parameters**: `search_context_size`: Research Intensity에 따라 결정 (light→`"low"` / standard→`"medium"` / deep→`"high"`), `search_recency_filter: "year"`
+
+**수집 목표**: light=5-7 / standard=7-10 / deep=10-15 pain expressions
 
 ---
 
@@ -153,7 +170,9 @@ For comparisons: note competitors mentioned and criteria used.
 Find 8-10 desire + 5-8 comparison expressions. Include: [competitor list]
 ```
 
-**Parameters**: `search_context_size: "high"`, `search_recency_filter: "year"`
+**Parameters**: `search_context_size`: Research Intensity에 따라 결정 (light→`"low"` / standard→`"medium"` / deep→`"high"`), `search_recency_filter: "year"`
+
+**수집 목표**: desire — light=3-5 / standard=5-7 / deep=8-10, comparison — light=2-3 / standard=3-5 / deep=5-8
 
 ---
 
@@ -175,7 +194,9 @@ For each: quote the expression, classify type, note source platform.
 Find 8-12 trigger phrases across 3+ trigger types.
 ```
 
-**Parameters**: `search_context_size: "high"`, `search_recency_filter: "year"`
+**Parameters**: `search_context_size`: Research Intensity에 따라 결정 (light→`"low"` / standard→`"medium"` / deep→`"high"`), `search_recency_filter: "year"`
+
+**수집 목표**: light=3-5 / standard=5-8 / deep=8-12 trigger phrases
 
 ---
 
@@ -184,6 +205,8 @@ Find 8-12 trigger phrases across 3+ trigger types.
 **Goal**: Write all findings to `research-memory/customer-language.md` and log execution.
 
 #### 5a. Write customer-language.md
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Use the **exact schema** in `references/customer-language-schema.md`. Key rules:
 - 5 sections: Pain Expressions, Desire Expressions, Comparison Language, Trigger Phrases, Community Sources
@@ -210,7 +233,7 @@ Append one row:
 > This skill does NOT use `perplexity_reason`. The focus is **collection**, not classification or reasoning. `perplexity_ask` handles fact-based community mining best.
 
 **Common parameters**:
-- `search_context_size`: Always `"high"` — community data needs broad context to find real quotes
+- `search_context_size`: Research Intensity 레벨에 따라 결정 — 위 Research Intensity 테이블 참조
 - `search_recency_filter`: `"year"` — recent expressions are most relevant for current copy
 
 **Query best practices**:
@@ -219,6 +242,7 @@ Append one row:
 - Include competitor names to surface comparison discussions
 - One category per query (pain, desire+comparison, triggers) — don't combine all in one call
 - Request source attribution for every expression
+- Language: 사용자가 English 외 언어를 지정한 경우, 모든 query 끝에 "Respond in [language]."를 추가
 
 ---
 
@@ -226,10 +250,10 @@ Append one row:
 
 Before saving, verify:
 
-- [ ] At least 10 pain expressions collected (with intensity ratings)
-- [ ] At least 8 desire expressions collected
-- [ ] At least 5 comparison expressions with competitor names and criteria
-- [ ] At least 8 trigger phrases across 3+ trigger types
+- [ ] Pain expressions 최소 5개 (light) ~ 15개 (deep) 수집 (with intensity ratings)
+- [ ] Desire expressions 최소 3개 (light) ~ 10개 (deep) 수집
+- [ ] Comparison expressions 최소 2개 (light) ~ 8개 (deep) 수집, competitor names and criteria 포함
+- [ ] Trigger phrases 최소 3개 (light) ~ 12개 (deep) 수집, 3+ trigger types
 - [ ] Every expression includes source platform/community
 - [ ] Community Sources table lists all mined sources with URLs where available
 - [ ] Expressions read like real human language (not AI-summarized)

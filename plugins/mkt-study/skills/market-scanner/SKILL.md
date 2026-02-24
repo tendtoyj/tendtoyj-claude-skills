@@ -61,10 +61,26 @@ Collect from the user conversationally. Do NOT dump a form — ask naturally.
 | Current status | Optional | Revenue range, growth stage, geography |
 | Research focus | Optional | Specific area of interest (trends, size, structure, etc.) |
 | Known competitors | Optional | Helps triangulate market boundaries |
+| Research intensity | Optional | "light" / "standard" / "deep" (default: deep) — 리서치 깊이와 수집량 조절 |
+| Language | Optional | 결과물 작성 언어 (default: English) |
 
 **If brand-memory/ exists**, pre-fill from `voice-profile.md` and `positioning.md` — ask user to confirm or correct.
 
 **If this is a Refresh**, show the current market-landscape.md summary and ask: "What has changed or what do you want to update?"
+
+---
+
+## Research Intensity
+
+사용자가 명시적으로 요청하면 리서치 깊이를 조절합니다. 지정하지 않으면 `deep` (기본값).
+
+| Level | search_context_size | 수집량 | 용도 |
+|-------|--------------------|----|------|
+| `light` | low | 축소 (~50%) | 빠른 감 잡기 |
+| `standard` | medium | 보통 (~75%) | 일반 리서치 |
+| `deep` | high | 전체 (100%) | 본격 리서치 |
+
+> "가볍게", "빠르게", "간단히" → light / "보통으로", "적당히" → standard / 별도 지정 없음 → deep
 
 ---
 
@@ -89,7 +105,7 @@ Be specific: "DTC home textiles" not "home goods"
 ```
 
 **Parameters**:
-- `search_context_size`: "high"
+- `search_context_size`: Research Intensity에 따라 결정 (light→"low" / standard→"medium" / deep→"high")
 
 **Output**: Category name, scope definition, boundary clarification, adjacent markets.
 
@@ -116,7 +132,7 @@ If multiple sources conflict, note the range.
 ```
 
 **Parameters**:
-- `search_context_size`: "high"
+- `search_context_size`: Research Intensity에 따라 결정 (light→"low" / standard→"medium" / deep→"high")
 - `search_recency_filter`: "year"
 
 **Output**: TAM, SAM, CAGR, regional split — all with source citations.
@@ -143,9 +159,9 @@ For each trend, cover:
 
 **Parameters**:
 - `search_recency_filter`: "month"
-- `search_context_size`: "high"
+- `search_context_size`: Research Intensity에 따라 결정 (light→"low" / standard→"medium" / deep→"high")
 
-**Output**: 3-5 trends, each tagged with category, opportunity/threat, timeframe, and evidence.
+**Output**: 트렌드 수는 intensity에 따라 결정 (light=2-3 / standard=3 / deep=3-5), 각 트렌드에 category, opportunity/threat, timeframe, evidence 포함.
 
 ---
 
@@ -172,9 +188,9 @@ Also identify:
 ```
 
 **Parameters**:
-- `search_context_size`: "high"
+- `search_context_size`: Research Intensity에 따라 결정 (light→"low" / standard→"medium" / deep→"high")
 
-**Output**: Market structure across 4 dimensions + seasonality calendar.
+**Output**: Market structure 분석 범위는 intensity에 따라 결정 (light=2차원 핵심만 / standard=3차원 / deep=4차원 전체) + seasonality calendar.
 
 ---
 
@@ -183,6 +199,8 @@ Also identify:
 **Goal**: Write all findings to `research-memory/market-landscape.md` and log the execution.
 
 #### 5a. Write market-landscape.md
+
+**Language rule**: 섹션 헤더와 테이블 컬럼명은 영어로 유지합니다. 본문, 셀 값, 설명, 분석 텍스트는 사용자가 지정한 언어로 작성합니다. 언어가 지정되지 않으면 English로 작성합니다.
 
 Use the exact schema below. Fill every section with Step 1-4 findings.
 
@@ -254,7 +272,7 @@ Append one row to the log:
 | `perplexity_search` | Find specific URLs/reports | Only if Steps 1-4 need source verification |
 
 **Common parameters**:
-- `search_context_size`: Always `"high"` — market research needs comprehensive context
+- `search_context_size`: Research Intensity 레벨에 따라 결정 — 위 Research Intensity 테이블 참조
 - `search_recency_filter`: `"month"` for trends (Step 3), `"year"` for size data (Step 2)
 
 **Query best practices**:
@@ -262,6 +280,7 @@ Append one row to the log:
 - Ask for sources: Always request citation of source name + data year
 - Handle conflicts: When sources disagree, report the range, not a single number
 - One topic per query: Don't combine market size + trends in one call
+- Language: 사용자가 English 외 언어를 지정한 경우, 모든 query 끝에 "Respond in [language]."를 추가
 
 ---
 
@@ -271,8 +290,8 @@ Before saving, verify:
 
 - [ ] Market category is PRECISE (not "tech" but "AI-powered marketing automation for SMBs")
 - [ ] TAM/SAM numbers have source citations and data year
-- [ ] At least 3 macro trends identified, each tagged opportunity/threat
-- [ ] Market structure covers at least 2 of 4 dimensions (price, channel, segment, sub-category)
+- [ ] 매크로 트렌드 최소 2개 (light) ~ 5개 (deep) 식별, 각각 opportunity/threat 태그 포함
+- [ ] Market structure 최소 2차원 (light) ~ 4차원 (deep) 커버 (price, channel, segment, sub-category)
 - [ ] Seasonality section is populated (even if "no strong seasonality detected")
 - [ ] All Perplexity responses include source URLs in the output
 - [ ] research-log.md updated with execution record
