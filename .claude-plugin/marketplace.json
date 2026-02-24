@@ -9,14 +9,25 @@
   },
   "plugins": [
     {
-      "name": "vibe-marketing",
-      "source": "./plugins/vibe-marketing",
+      "name": "vibe-mkt",
+      "source": "./plugins/vibe-mkt",
       "description": "10 marketing skills: orchestrator, brand voice, positioning angles, direct response copy, lead magnet, email sequences, keyword research, SEO content, newsletter, and content atomizer.",
       "version": "1.0.0",
       "author": {
         "name": "Yoojung Kim"
       },
       "keywords": ["marketing", "copywriting", "seo", "brand-voice", "email-marketing", "content-strategy"],
+      "category": "marketing"
+    },
+    {
+      "name": "mkt-study",
+      "source": "./plugins/mkt-study",
+      "description": "9 research skills: research orchestrator, market scanner, competitor finder, competitor analyzer, competitor visual, audience profiler, voice of customer, research synthesizer, and expert validator.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Yoojung Kim"
+      },
+      "keywords": ["research", "competitive-analysis", "customer-insight", "market-research", "strategy"],
       "category": "marketing"
     }
   ]

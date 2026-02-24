@@ -10,8 +10,8 @@ This folder contains **empty templates**. You don't need to copy these manually 
 ```
 your-project/              ← your working directory
 ├── brand-memory/          ← created automatically by skills
-│   ├── voice-profile.md   ← written by /vibe-marketing:brand-voice
-│   ├── positioning.md     ← written by /vibe-marketing:positioning-angles
+│   ├── voice-profile.md   ← written by /vibe-mkt:brand-voice
+│   ├── positioning.md     ← written by /vibe-mkt:positioning-angles
 │   ├── audience.md        ← written manually or via orchestrator
 │   ├── campaigns.md       ← updated after each campaign/launch
 │   └── learnings.md       ← updated after results analysis
@@ -21,9 +21,9 @@ your-project/              ← your working directory
 ## Quickstart
 
 1. Open your project in Claude Code
-2. Run `/vibe-marketing:orchestrator` — it scans for gaps and tells you what to do first
-3. Run `/vibe-marketing:brand-voice` — creates `brand-memory/voice-profile.md`
-4. Run `/vibe-marketing:positioning-angles` — creates `brand-memory/positioning.md`
+2. Run `/vibe-mkt:orchestrator` — it scans for gaps and tells you what to do first
+3. Run `/vibe-mkt:brand-voice` — creates `brand-memory/voice-profile.md`
+4. Run `/vibe-mkt:positioning-angles` — creates `brand-memory/positioning.md`
 5. All other skills automatically read brand-memory and stay on-brand
 
 ## Manual Setup (Optional)
