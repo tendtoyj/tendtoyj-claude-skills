@@ -29,6 +29,17 @@
       },
       "keywords": ["research", "competitive-analysis", "customer-insight", "market-research", "strategy"],
       "category": "marketing"
+    },
+    {
+      "name": "creative-mkt",
+      "source": "./plugins/creative-mkt",
+      "description": "7 atomic creative skills for brand visual identity, storytelling frameworks, trend-powered content creation, and AI visual design. Each skill does one thing well with one tool.",
+      "version": "2.0.0",
+      "author": {
+        "name": "Yoojung Kim"
+      },
+      "keywords": ["creative", "social-media", "visual-design", "storytelling", "image-generation", "brand-guidelines", "content-creation"],
+      "category": "marketing"
     }
   ]
 }
