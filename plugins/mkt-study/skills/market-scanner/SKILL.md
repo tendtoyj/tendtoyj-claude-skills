@@ -1,3 +1,9 @@
+---
+name: market-scanner
+description: "Scan and map your market landscape — size, structure, trends, and seasonality using Perplexity. Use when user mentions: market research, market size, market structure, market trends, market analysis, market landscape, market scan, market mapping, TAM, total addressable market, market conditions, market demand, seasonality, market dynamics, market overview, market forces, macro trends, 시장 조사, 시장 분석, 시장 규모, 시장 트렌드, 시장 구조, 시장 스캔"
+user-invocable: true
+---
+
 # Market Scanner
 
 > Scan and map your market landscape — size, structure, trends, and seasonality.
