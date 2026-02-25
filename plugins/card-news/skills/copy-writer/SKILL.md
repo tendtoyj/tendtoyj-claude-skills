@@ -1,186 +1,106 @@
 ---
 name: card-news-copy-writer
-description: "Write copy for Instagram card-news (1080x1350). Plans card structure, writes all placeholders with strict character limits, and outputs structured markdown for evaluation. Use when user mentions: 카드뉴스 카피, card news copy, 카드뉴스 글, 카드뉴스 문구, write card news, 카드뉴스 텍스트, 카피 작성, card copy, 카드뉴스 초안"
+description: "Write copy for Instagram card-news (1080x1350). Receives a topic and immediately writes all placeholder copy with strict character limits. Outputs structured markdown for downstream skills. Use when user mentions: 카드뉴스 카피, card news copy, 카드뉴스 글, 카드뉴스 문구, write card news, 카드뉴스 텍스트, 카피 작성, card copy, 카드뉴스 초안"
 user-invocable: true
 ---
 
 # Card-News Copy Writer
 
-> Plan card structure + write every placeholder's copy with strict character limits.
-> No tools — pure copywriting. Outputs structured markdown for copy-evaluator.
+> 컨텍스트를 로드하고, 사용자에게 주제를 확인한 뒤 카드뉴스 카피를 작성한다.
 
 ---
 
-## Purpose
+## 핵심 규칙
 
-Copy Writer handles the creative core of card-news production:
-1. Decide the card structure (how many cards, what type each card is)
-2. Write all placeholder text with strict character limits
-3. Produce structured markdown that downstream skills consume
-
----
-
-## Memory Auto-Load Protocol
-
-```
-1. Check card-news-memory/ exists → create from card-news-memory-template/ if missing
-   → ⚠ If creation fails, SKIP memory loading and proceed with defaults
-2. Load card-news-memory/series-config.md
-   → Brand header name, account handle, default tags, color theme
-   → If missing: use placeholder values (header="Brand", handle="@account")
-3. Load card-news-memory/copy-bank.md
-   → Past approved copy for few-shot reference (tone, structure patterns)
-   → If missing: skip — write copy without few-shot reference
-4. Load brand-memory/voice-profile.md (read-only)
-   → Brand personality, tone descriptors, vocabulary preferences
-   → If missing: skip — use neutral professional Korean tone
-5. Optional: Load creative-memory/storytelling-frameworks.md (read-only)
-   → Narrative patterns and hooks
-6. Optional: Load research-memory/ files (read-only)
-   → Topic-specific facts, data, quotes for content sourcing
-```
-
-**Error handling:** 필수 파일(series-config, copy-bank) 로드 실패 시, 사용자에게 경고 메시지를 출력하고 기본값으로 진행한다. 파일 로드 실패가 전체 프로세스를 중단시켜서는 안 된다.
+1. 컨텍스트 파일을 로드한다 (아래 "컨텍스트 로드" 참고). 없는 파일은 사용자에게 알린 후 기본값으로 진행한다.
+2. 주제가 불명확하면 사용자에게 확인한다 (주제, 톤, 타겟 등)
+3. 확인 후 카피를 작성한다
+4. 기본 구조: 4장 (cover → content-image → content-features → outro)
+5. 사용자가 장수나 구조를 명시하면 그대로 따른다
+6. 글자수 제한을 지킨다 (아래 테이블 참고)
+7. 출력은 구조화된 마크다운 한 덩어리로
 
 ---
 
-## 글자수 카운팅 규칙
+## 컨텍스트 로드
 
-1. 한글 1자 = 1, 공백 1자 = 1, 영문/숫자 1자 = 1, 특수문자 1자 = 1
-2. `title-line-1`에서 `highlight-keyword`가 인라인으로 포함됨 — **keyword + 나머지 합산이 12자 이내**
-3. 한계치는 **hard maximum** — 1자라도 초과하면 시각적 오버플로우 발생
-4. 한영 혼용 시 실질적으로 **15% 적게** 써야 안전 (한글이 영문보다 넓게 렌더링됨)
+카피 작성 전에 아래 파일들을 읽고, 
+**파일이 없으면 사용자에게 보고한 후, 카피 작성으로 넘어간다.** 
 
----
+| 파일 | 용도 | 없으면 |
+|------|------|--------|
+| `card-news-memory/series-config.md` | 브랜드명, 핸들, 태그, 컬러 | 기본값 사용 (Brand, @account) |
+| `card-news-memory/copy-bank.md` | 과거 승인 카피 (톤 참고) | 참고 없이 작성 |
+| `brand-memory/voice-profile.md` | 브랜드 보이스, 톤 | 중립적 전문 한국어 톤 |
 
-## Input
-
-| Input | Required | Source |
-|-------|----------|--------|
-| Topic / Theme | Yes | User or orchestrator |
-| Card count | Yes | Default 4, range 2~10 |
-| Language | No | Default: 한국어 |
-| Specific angle / hook | No | User preference |
-| Target audience | No | series-config or user |
+**규칙:**
+- 읽기 성공하면 카피에 반영한다 (브랜드명, 핸들, 톤 등)
+- 읽기 실패하면 **경고 노출 후 기본값으로 진행**
 
 ---
 
-## Process
+## 글자수 제한
 
-### Step 1: Structure Planning
+모든 글자수는 **hard maximum**. 1자라도 넘으면 렌더링 깨짐.
+카운팅: 한글 1자 = 영문 1자 = 공백 1자 = 특수문자 1자 = 1.
 
-Design the card sequence based on topic and card count.
+| Field | Max | Card Type |
+|-------|-----|-----------|
+| accent-text | 6 | Cover |
+| highlight-keyword | 6 | Cover, Content-Image, Content-Features |
+| cover-title | 6 | Cover |
+| cover-subtitle | 20 | Cover |
+| tag-N | 8 each | Cover |
+| category | 8 | Content-Image, Content-Features |
+| title-line-1 (keyword 포함) | 12 | Content-Image, Content-Features |
+| title-line-2 | 12 | Content-Image, Content-Features |
+| body-line-N | 20 each | Content-Image, Content-Features |
+| feature-N-title | 12 | Content-Features |
+| feature-N-description | 25 | Content-Features |
+| outro-line-N | 12 | Outro |
+| account-handle | 15 | Outro |
 
-**Available card types:**
-
-| Type | Position | Purpose |
-|------|----------|---------|
-| `cover` | Always first | Brand header + headline + tags |
-| `content-image` | Middle | Image + title + body text |
-| `content-features` | Middle | 3 feature cards with icons |
-| `outro` | Always last | Closing message + account handle |
-
-**Structure rules:**
-- Card 1 = `cover` (mandatory)
-- Last card = `outro` (mandatory)
-- Middle cards = any combination of `content-image` and `content-features`
-- For 2 cards: cover + outro only
-- For 3 cards: cover + 1 content + outro
-- For 4 cards (default): cover + 2 content + outro
-- For 5+ cards: cover + 3+ content + outro
-
-**Present the proposed structure to the user for confirmation before writing copy.**
-
-- 사용자가 구조를 수정 요청하면 반영 후 다시 제안한다.
-- **사용자가 별다른 의견 없이 진행을 요청하거나, 주제만 제시한 경우에는 기본 구조(4장: cover → content-image → content-features → outro)로 바로 진행한다.**
-- 구조 확인에 최대 1회 재제안까지만 허용. 2회 이상 반복되면 기본 구조로 확정하고 카피 작성을 시작한다.
-
-Example for 4-card set:
-```
-Proposed Structure (4 cards):
-1. cover       — Hook + headline
-2. content-image   — Key visual + explanation
-3. content-features — 3 key points with icons
-4. outro       — Closing + CTA
-```
+**주의:** `title-line-1`에 `highlight-keyword`가 인라인 포함됨 — keyword + 나머지 합산 12자 이내.
 
 ---
 
-### Step 2: Write Copy
+## 카드 타입별 작성 가이드
 
-Write all placeholders for each card, strictly following character limits from `references/placeholder-constraints.md`.
+### Cover (첫 장)
+- **accent-text**: 손글씨 느낌의 짧은 감탄사/훅 (예: "핵심만 쏙", "알아볼까?")
+- **highlight-keyword** + **cover-title**: 합쳐서 하나의 헤드라인을 이룸
+- **cover-subtitle**: 헤드라인 보충 한 줄
+- **tags**: 주제 카테고리 2~4개 (예: #경제, #투자, #재테크)
 
-#### Cover Card Copy
+### Content-Image (중간 — 이미지 카드)
+- **category**: 카테고리 필 (예: #경제)
+- **highlight-keyword** → **title-line-1** 안에 인라인 포함
+- **title-line-2**: 두 번째 제목줄
+- **body-line-1~3**: 본문 2~3줄 (제목 반복 금지, 정보 추가)
+- **image-alt**: 이상적인 이미지 설명 (image-generator가 사용)
 
-| Field | Max | Write |
-|-------|-----|-------|
-| accent-text | 6 | Short exclamation or hook in handwriting style |
-| highlight-keyword | 6 | Core topic keyword with yellow highlight |
-| cover-title | 6 | Continuation of headline |
-| cover-subtitle | 20 | One-line context sentence |
-| tag-1 ~ tag-N | 8 each | 2~4 hashtag pills |
+### Content-Features (중간 — 3포인트 카드)
+- category, highlight-keyword, title-line-1, title-line-2: 위와 동일
+- **feature-1~3-title**: 각 포인트 제목
+- **feature-1~3-description**: 각 포인트 설명
+- **feature-1~3-icon-hint**: 아이콘 힌트 단어 (예: "heart", "clock", "shield")
+- **body-line-1~3**: 요약 본문
 
-**Cover writing tips:**
-- `highlight-keyword` + `cover-title` form one visual headline — ensure they read naturally together
-- `accent-text` is handwriting font — use casual, energetic tone (e.g., "핵심만 쏙", "알아볼까?")
-- Tags should categorize the topic, not repeat the headline
-
-#### Content-Image Card Copy
-
-| Field | Max | Write |
-|-------|-----|-------|
-| category | 8 | Category pill (e.g., #경제) |
-| highlight-keyword | 6 | Key term highlighted in yellow |
-| title-line-1 | 12 (incl. keyword) | First title line (keyword is inline) |
-| title-line-2 | 12 | Second title line |
-| body-line-1~3 | 20 each | Body text, 2~3 lines |
-
-**Content-image tips:**
-- `highlight-keyword` appears inline within `title-line-1` — budget character count accordingly
-- Body text should add context or explanation, not repeat the title
-- Write `image-alt` text describing the ideal image (this feeds into contents-manager)
-
-#### Content-Features Card Copy
-
-| Field | Max | Write |
-|-------|-----|-------|
-| category | 8 | Category pill |
-| highlight-keyword | 6 | Key term |
-| title-line-1 | 12 (incl. keyword) | First title line |
-| title-line-2 | 12 | Second title line |
-| feature-N-title (×3) | 12 each | Feature heading |
-| feature-N-description (×3) | 25 each | Feature explanation |
-| body-line-1~3 | 20 each | Summary text |
-
-**Content-features tips:**
-- 3 features should be parallel in structure (similar length, same grammatical pattern)
-- Feature descriptions should be self-contained — no "as mentioned above" references
-- Include `icon-hint` for each feature (a descriptive word like "heart", "clock", "shield") — contents-manager uses this to select Lucide icons
-
-#### Outro Card Copy
-
-| Field | Max | Write |
-|-------|-----|-------|
-| outro-line-1~3 | 12 each | Closing message, center-aligned |
-| account-handle | 15 | From series-config.md |
-
-**Outro tips:**
-- 2~3 lines that wrap up the topic with warmth
-- Include a soft CTA ("팔로우", "저장해두세요", etc.) or emotional close
-- Account handle comes from series-config — just reference it
+### Outro (마지막 장)
+- **outro-line-1~3**: 마무리 메시지 2~3줄 (따뜻한 CTA 포함)
+- **account-handle**: 계정 핸들 (사용자가 안 알려주면 `@account`로 표기)
 
 ---
 
-### Step 3: Output
+## 출력 포맷
 
-Produce structured markdown in this exact format:
+주제를 받으면 아래 포맷으로 **바로 출력**한다:
 
 ```markdown
-# Card-News Copy: [Topic]
+# Card-News Copy: [주제]
 
-> Date: [YYYY-MM-DD]
-> Cards: [N]
-> Language: [language]
+> Date: YYYY-MM-DD
+> Cards: N
 > Structure: cover → [types] → outro
 
 ---
@@ -199,27 +119,26 @@ Produce structured markdown in this exact format:
 - **highlight-keyword**: [text] ([N]자)
 - **title-line-1**: [text] ([N]자, keyword 포함)
 - **title-line-2**: [text] ([N]자)
-- **image-alt**: [ideal image description]
-- **icon-hint**: [not applicable for content-image]
+- **image-alt**: [이미지 설명]
 - **body-line-1**: [text] ([N]자)
 - **body-line-2**: [text] ([N]자)
 - **body-line-3**: [text] ([N]자)
 
 ## Card 3 — Content-Features
 
-- **category**: [text]
+- **category**: [text] ([N]자)
 - **highlight-keyword**: [text] ([N]자)
-- **title-line-1**: [text] ([N]자)
+- **title-line-1**: [text] ([N]자, keyword 포함)
 - **title-line-2**: [text] ([N]자)
 - **feature-1-title**: [text] ([N]자)
 - **feature-1-description**: [text] ([N]자)
-- **feature-1-icon-hint**: [descriptive word]
+- **feature-1-icon-hint**: [word]
 - **feature-2-title**: [text] ([N]자)
 - **feature-2-description**: [text] ([N]자)
-- **feature-2-icon-hint**: [descriptive word]
+- **feature-2-icon-hint**: [word]
 - **feature-3-title**: [text] ([N]자)
 - **feature-3-description**: [text] ([N]자)
-- **feature-3-icon-hint**: [descriptive word]
+- **feature-3-icon-hint**: [word]
 - **body-line-1**: [text] ([N]자)
 - **body-line-2**: [text] ([N]자)
 - **body-line-3**: [text] ([N]자)
@@ -229,25 +148,16 @@ Produce structured markdown in this exact format:
 - **outro-line-1**: [text] ([N]자)
 - **outro-line-2**: [text] ([N]자)
 - **outro-line-3**: [text] ([N]자)
-- **account-handle**: [from series-config]
+- **account-handle**: [handle]
 ```
 
-**Character count notation:** Include the actual character count next to each text field in parentheses. This enables copy-evaluator to quickly verify limits.
-
 ---
 
-## After PASS: Copy Bank Update
+## 하지 않는 것
 
-When copy-evaluator returns **PASS** or **PASS WITH NOTES**, append the approved copy to `card-news-memory/copy-bank.md` following the format defined in that file.
+- 카피 평가 (→ copy-evaluator)
+- 아이콘 선택 (→ contents-manager)
+- 이미지 생성 (→ image-generator)
+- HTML 렌더링 (→ card-news-maker)
 
----
-
-## What This Skill Does NOT Do
-
-- **Evaluate copy quality** → copy-evaluator
-- **Select icons** → contents-manager
-- **Generate images** → image-generator
-- **Render HTML/PNG** → card-news-maker
-- **Route pipeline** → orchestrator
-
-Copy Writer stays focused: **topic in → structured copy out**.
+컨텍스트 로드 후 카피 작성에만 집중한다.
