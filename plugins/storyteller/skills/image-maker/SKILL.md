@@ -48,14 +48,23 @@ description: "planner가 승인한 카드 구성을 받아 이미지 톤 협의 
 > IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 > ```
 
+#### 템플릿 매핑
+
+planner 출력의 `Template`과 카드 위치(표지/내용)로 구도를 결정한다:
+
+| planner 출력 | 표지 (Card 1) | 내용 (Card 2+) |
+|-------------|---------------|----------------|
+| Template: A | tpl-a-cover | tpl-a-content |
+| Template: B | tpl-b-cover | tpl-b-content |
+
 #### 카드 타입별 구도 지시
 
 | 카드 타입 | 구도 지시 |
 |-----------|-----------|
-| **tpl-a-cover** (표지) | 풀 프레임. 상단 밝게/디테일, 하단 어두워져도 OK. 시선을 끄는 메인 비주얼. |
-| **tpl-a-content** (내용) | 풀 프레임. 하단부에 텍스트가 올라감. 전체적으로 조화로운 비주얼. |
-| **tpl-b-cover** (표지) | 풀 프레임. 하단부 심플/어두운 영역 확보 (텍스트 올라감). 상단에 주요 비주얼. |
-| **tpl-b-content** (내용) | 상단 ~70%만 표시됨. 주요 요소 중앙~상단 배치. 하단 잘려도 구도 유지. |
+| tpl-a-cover | 풀 프레임. 상단 밝게/디테일, 하단 어두워져도 OK. 시선을 끄는 메인 비주얼. |
+| tpl-a-content | 풀 프레임. 하단부에 텍스트가 올라감. 전체적으로 조화로운 비주얼. |
+| tpl-b-cover | 풀 프레임. 하단부 심플/어두운 영역 확보 (텍스트 올라감). 상단에 주요 비주얼. |
+| tpl-b-content | 상단 ~70%만 표시됨. 주요 요소 중앙~상단 배치. 하단 잘려도 구도 유지. |
 
 #### 이미지 생성 대상
 

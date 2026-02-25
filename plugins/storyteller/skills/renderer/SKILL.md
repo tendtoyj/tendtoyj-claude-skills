@@ -27,14 +27,19 @@ description: "승인된 카드뉴스 기획(planner 출력)과 생성된 이미�
 1. 선택된 템플릿에 따라 템플릿 파일 읽기
    - 템플릿 A → `assets/template-a.html`
    - 템플릿 B → `assets/template-b.html`
-2. 템플릿에서 CSS(`<style>` 블록)와 카드 HTML 블록을 추출
-3. 각 카드마다 해당 타입의 HTML 블록을 복제하고 placeholder 치환:
+2. planner 출력의 `Template`과 카드 위치로 HTML 블록 결정:
+   | planner 출력 | 표지 (Card 1) | 내용 (Card 2+) |
+   |-------------|---------------|----------------|
+   | Template: A | tpl-a-cover 블록 | tpl-a-content 블록 |
+   | Template: B | tpl-b-cover 블록 | tpl-b-content 블록 |
+3. 템플릿에서 CSS(`<style>` 블록)와 카드 HTML 블록을 추출
+4. 각 카드마다 해당 타입의 HTML 블록을 복제하고 placeholder 치환:
    - `{{card-id}}` → `card-01`, `card-02`, ...
    - `{{title}}` → planner 카피
    - `{{subtitle}}`, `{{body-text}}`, `{{top-label}}` → planner 카피
    - `{{brand}}` → 브랜드명
    - `{{image}}` → 이미지 상대 경로 (`images/cover.png` 등)
-4. 치환된 카드 블록들을 하나의 HTML로 조립 → `render.html` 저장
+5. 치환된 카드 블록들을 하나의 HTML로 조립 → `render.html` 저장
 
 placeholder 목록 및 카드 타입별 상세는 [references/html-assembly.md](references/html-assembly.md) 참조.
 
