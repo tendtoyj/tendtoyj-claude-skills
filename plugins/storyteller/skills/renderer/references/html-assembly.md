@@ -1,0 +1,212 @@
+# HTML 조립 가이드 (템플릿 치환 방식)
+
+## 목차
+
+1. [템플릿 파일 위치](#템플릿-파일-위치)
+2. [Placeholder 목록](#placeholder-목록)
+3. [조립 절차](#조립-절차)
+4. [render.html 최종 구조](#renderhtml-최종-구조)
+5. [미리보기 섹션](#미리보기-섹션)
+
+---
+
+## 템플릿 파일 위치
+
+| 카드 타입 | 템플릿 파일 |
+|-----------|------------|
+| card-gradient (표지) | `assets/full-image-case.html` |
+| card-white (내용) | `assets/full-image-case.html` |
+| card-image-overlay (내용) | `assets/part-image-case.html` |
+| card-image-top (내용) | `assets/part-image-case.html` |
+
+- 표지는 항상 `card-gradient` → `assets/full-image-case.html`에서 추출
+- 내용 카드 타입이 `card-white`이면 같은 파일, 아니면 `assets/part-image-case.html`에서 추출
+
+---
+
+## Placeholder 목록
+
+템플릿 HTML 내 `{{placeholder}}` 형식. 모든 placeholder는 치환 필수.
+
+### 공통
+
+| Placeholder | 설명 | 치환 값 |
+|-------------|------|---------|
+| `{{card-id}}` | 카드 고유 ID | `card-01`, `card-02`, ... (zero-padded) |
+| `{{brand}}` | 브랜드명 | planner 설정값 (기본: `AI STORYTELLER`) |
+
+### card-gradient (표지)
+
+| Placeholder | 설명 |
+|-------------|------|
+| `{{top-label}}` | 카테고리/훅 텍스트 |
+| `{{title}}` | 메인 타이틀 (`<br>` 줄바꿈 포함) |
+| `{{subtitle}}` | 서브타이틀 |
+| `{{brand}}` | 브랜드명 |
+| `{{image}}` | 표지 이미지 상대 경로 (예: `images/cover.png`) |
+
+### card-white (내용)
+
+| Placeholder | 설명 |
+|-------------|------|
+| `{{title}}` | 타이틀 |
+| `{{body-text}}` | 본문 텍스트 (`<br>` 줄바꿈 포함) |
+| `{{brand}}` | 브랜드명 |
+
+- card-white에는 `{{image}}` placeholder 없음 (이미지 불필요)
+
+### card-image-overlay (내용)
+
+| Placeholder | 설명 |
+|-------------|------|
+| `{{title}}` | 타이틀 (`<br>` 줄바꿈 포함) |
+| `{{subtitle}}` | 서브타이틀 |
+| `{{brand}}` | top-label 위치에 브랜드명으로 사용 |
+| `{{image}}` | 배경 이미지 상대 경로 (`.image-area`에 주입) |
+
+### card-image-top (내용)
+
+| Placeholder | 설명 |
+|-------------|------|
+| `{{title}}` | 타이틀 |
+| `{{body-text}}` | 본문 텍스트 (`<br>` 줄바꿈 포함) |
+| `{{brand}}` | 브랜드명 |
+| `{{image}}` | 상단 이미지 상대 경로 (`.image-area`에 주입) |
+
+---
+
+## 조립 절차
+
+### 1. 템플릿에서 CSS 추출
+
+템플릿 파일의 `<style>` 블록 전체를 추출한다. 두 템플릿 파일의 CSS가 모두 필요한 경우 (표지 card-gradient + 내용 card-image-top 등), 양쪽 CSS를 합친다.
+
+공통 리셋 CSS (`*`, `body`)는 한 번만 포함:
+
+```css
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+}
+```
+
+**주의**: body의 `flex-wrap: wrap` → `flex-direction: column` + `align-items: center`로 변경. 카드가 세로로 나열되어야 개별 스크린샷이 정확하다.
+
+### 2. 템플릿에서 카드 HTML 블록 추출
+
+각 카드 타입의 HTML 블록을 추출한다. 블록 범위는 HTML 주석으로 식별:
+
+- `<!-- Card 1: Gradient Background -->` ~ 다음 `<!-- Card` 전까지
+- `<!-- Card 2: White Background -->` ~ `</body>` 전까지
+- `<!-- Card 1: Image Overlay -->` ~ 다음 `<!-- Card` 전까지
+- `<!-- Card 2: Image Top -->` ~ `</body>` 전까지
+
+### 3. 카드별 placeholder 치환
+
+각 카드마다:
+1. 해당 타입의 HTML 블록을 복제
+2. `{{placeholder}}`를 planner 출력 값으로 치환
+3. `{{card-id}}`를 `card-01`, `card-02`, ... 순번으로 치환
+4. `{{image}}`를 이미지 상대 경로로 치환
+
+이미지 경로 규칙:
+- 표지: `images/cover.png`
+- 내용 카드: `images/card-02.png`, `images/card-03.png`, ...
+- 이미지가 없는 카드 (card-white): `{{image}}` 없으므로 치환 불필요
+
+### 4. render.html 조립
+
+추출한 CSS + 치환된 카드 블록들을 합쳐 단일 HTML 파일로 생성.
+
+---
+
+## render.html 최종 구조
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 40px;
+    }
+    /* 표지 카드 CSS (card-gradient) */
+    /* ... full-image-case.html에서 추출 ... */
+
+    /* 내용 카드 CSS (선택된 타입) */
+    /* ... 해당 템플릿에서 추출 ... */
+  </style>
+</head>
+<body>
+  <!-- 치환 완료된 카드들이 순서대로 배치 -->
+  <div class="card-gradient" id="card-01" style="background-image: url('images/cover.png')">
+    ...
+  </div>
+  <div class="card-image-top" id="card-02">
+    ...
+  </div>
+  <!-- ...반복... -->
+</body>
+</html>
+```
+
+핵심:
+- 폰트는 `<link>` 태그로 로드 (`@import`보다 Playwright에서 안정적)
+- body는 `flex-direction: column` (카드 세로 나열)
+- 각 카드에 `id="card-NN"` 부여 (Playwright 셀렉터용)
+
+---
+
+## 미리보기 섹션
+
+모든 카드 렌더링 후, render.html의 `</body>` 앞에 미리보기 섹션 추가:
+
+```html
+<div class="preview-grid" id="preview">
+  <div class="card-wrapper">
+    <!-- card-01 복제본 (id 제거) -->
+  </div>
+  <div class="card-wrapper">
+    <!-- card-02 복제본 (id 제거) -->
+  </div>
+  <!-- ...반복... -->
+</div>
+```
+
+미리보기 CSS (기존 `<style>`에 추가):
+
+```css
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 216px);
+  gap: 16px;
+  padding: 24px;
+  background: #f5f5f5;
+}
+.preview-grid .card-wrapper {
+  width: 216px;
+  height: 270px;
+  overflow: hidden;
+}
+.preview-grid .card-wrapper > div {
+  transform: scale(0.2);
+  transform-origin: top left;
+}
+```
+
+`#preview` 셀렉터로 스크린샷 → `preview.png`
