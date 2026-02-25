@@ -59,19 +59,25 @@ Dark cinematic scene. High contrast, deep shadows with dramatic chiaroscuro ligh
 
 스타일 프리픽스 뒤, 장면 설명 뒤에 붙여 구도를 제어한다.
 
-### card-gradient (표지)
+### tpl-a-cover (템플릿 A 표지)
 
 ```
 Full-frame composition. Upper area bright and detailed; lower area may darken naturally. Eye-catching hero visual that works as a cover image.
 ```
 
-### card-image-overlay
+### tpl-a-content (템플릿 A 내용)
+
+```
+Full-frame composition. The image serves as a background for overlaid text. Keep the overall visual balanced and not overly complex, allowing text to remain legible.
+```
+
+### tpl-b-cover (템플릿 B 표지)
 
 ```
 Full-frame composition. Keep the lower third simple or dark to accommodate text overlay. Place the main visual interest in the upper two-thirds.
 ```
 
-### card-image-top
+### tpl-b-content (템플릿 B 내용)
 
 ```
 Composition optimized for top-crop display (top ~70% visible). Place key elements in the center-to-upper area. The bottom may be cropped without losing the composition.
@@ -81,7 +87,7 @@ Composition optimized for top-crop display (top ~70% visible). Place key element
 
 ## 프롬프트 조합 예시
 
-### 예시 1: Mode A + card-image-overlay
+### 예시 1: Mode A + tpl-b-cover
 
 planner의 image-concept: "1970년대 실리콘밸리 차고에서 컴퓨터를 조립하는 청년"
 
@@ -92,9 +98,11 @@ Photorealistic cinematic scene. Dramatic natural lighting — golden hour glow, 
 A young man in his twenties assembling a computer in a cluttered 1970s Silicon Valley garage. Wooden workbench covered with circuit boards and soldering tools. Warm sunlight filtering through a half-open garage door, casting long shadows across the scene.
 
 Full-frame composition. Keep the lower third simple or dark to accommodate text overlay. Place the main visual interest in the upper two-thirds.
+
+IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 ```
 
-### 예시 2: Mode B + card-image-top
+### 예시 2: Mode B + tpl-b-content
 
 planner의 image-concept: "돈세탁을 세탁기로 시각화"
 
@@ -105,9 +113,11 @@ Conceptual editorial product art. Clean studio setting with beige/cream backdrop
 A vintage pastel-colored washing machine with its door open, dollar bills and gold coins tumbling out onto a pristine surface. Soap bubbles floating around the bills. The scene is arranged like a carefully styled product photograph.
 
 Composition optimized for top-crop display (top ~70% visible). Place key elements in the center-to-upper area. The bottom may be cropped without losing the composition.
+
+IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 ```
 
-### 예시 3: Mode E + card-gradient (표지)
+### 예시 3: Mode E + tpl-a-cover
 
 planner의 image-concept: "금융 위기의 긴장감"
 
@@ -118,6 +128,8 @@ Dark cinematic scene. High contrast, deep shadows with dramatic chiaroscuro ligh
 A dimly lit trading floor at night. Rows of monitors casting blue-white glow on empty leather chairs. A single red ticker arrow pointing downward dominates the central screen. Papers scattered on the floor suggest hasty departure.
 
 Full-frame composition. Upper area bright and detailed; lower area may darken naturally. Eye-catching hero visual that works as a cover image.
+
+IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 ```
 
 ---
@@ -128,25 +140,25 @@ Full-frame composition. Upper area bright and detailed; lower area may darken na
 
 ### Mode A
 ```
-You are generating images for a card news series. Maintain consistent cinematic vintage aesthetic throughout: photorealistic, warm gold/amber/beige tones, dramatic natural lighting, subtle film grain, gentle vintage color grading. Every image should feel like it belongs to the same editorial photo series.
+You are generating images for a card news series. Maintain consistent cinematic vintage aesthetic throughout: photorealistic, warm gold/amber/beige tones, dramatic natural lighting, subtle film grain, gentle vintage color grading. Every image should feel like it belongs to the same editorial photo series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode B
 ```
-You are generating images for a card news series. Maintain consistent conceptual editorial style throughout: clean beige/cream studio backdrop, miniature diorama aesthetic, Wes Anderson-inspired symmetry, warm neutral tones, soft even lighting. Every image should feel like it belongs to the same curated product art collection.
+You are generating images for a card news series. Maintain consistent conceptual editorial style throughout: clean beige/cream studio backdrop, miniature diorama aesthetic, Wes Anderson-inspired symmetry, warm neutral tones, soft even lighting. Every image should feel like it belongs to the same curated product art collection. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode C
 ```
-You are generating images for a card news series. Maintain consistent editorial minimalist aesthetic throughout: clean bright backdrop, single object or minimal composition, restrained color palette, generous negative space, modern airy feel. Every image should feel like it belongs to the same minimalist editorial series.
+You are generating images for a card news series. Maintain consistent editorial minimalist aesthetic throughout: clean bright backdrop, single object or minimal composition, restrained color palette, generous negative space, modern airy feel. Every image should feel like it belongs to the same minimalist editorial series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode D
 ```
-You are generating images for a card news series. Maintain consistent surreal dreamlike aesthetic throughout: unexpected scale shifts, floating elements, warm-to-neutral tones, soft volumetric lighting, rich imaginative detail. Every image should feel like it belongs to the same otherworldly editorial series.
+You are generating images for a card news series. Maintain consistent surreal dreamlike aesthetic throughout: unexpected scale shifts, floating elements, warm-to-neutral tones, soft volumetric lighting, rich imaginative detail. Every image should feel like it belongs to the same otherworldly editorial series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode E
 ```
-You are generating images for a card news series. Maintain consistent dark cinematic aesthetic throughout: high contrast, deep shadows, cool/neutral palette, noir atmosphere, dramatic chiaroscuro lighting. Every image should feel like it belongs to the same moody editorial series.
+You are generating images for a card news series. Maintain consistent dark cinematic aesthetic throughout: high contrast, deep shadows, cool/neutral palette, noir atmosphere, dramatic chiaroscuro lighting. Every image should feel like it belongs to the same moody editorial series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```

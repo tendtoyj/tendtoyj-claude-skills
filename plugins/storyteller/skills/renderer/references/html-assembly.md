@@ -12,15 +12,12 @@
 
 ## 템플릿 파일 위치
 
-| 카드 타입 | 템플릿 파일 |
-|-----------|------------|
-| card-gradient (표지) | `assets/full-image-case.html` |
-| card-white (내용) | `assets/full-image-case.html` |
-| card-image-overlay (내용) | `assets/part-image-case.html` |
-| card-image-top (내용) | `assets/part-image-case.html` |
+| 템플릿 | 파일 | 포함 카드 타입 |
+|--------|------|---------------|
+| 템플릿 A (Full Image) | `assets/template-a.html` | tpl-a-cover, tpl-a-content |
+| 템플릿 B (Part Image) | `assets/template-b.html` | tpl-b-cover, tpl-b-content |
 
-- 표지는 항상 `card-gradient` → `assets/full-image-case.html`에서 추출
-- 내용 카드 타입이 `card-white`이면 같은 파일, 아니면 `assets/part-image-case.html`에서 추출
+- 선택된 템플릿 파일 하나에서 표지(cover) + 내용(content) 블록을 모두 추출
 
 ---
 
@@ -34,8 +31,9 @@
 |-------------|------|---------|
 | `{{card-id}}` | 카드 고유 ID | `card-01`, `card-02`, ... (zero-padded) |
 | `{{brand}}` | 브랜드명 | planner 설정값 (기본: `AI STORYTELLER`) |
+| `{{image}}` | 이미지 경로 | 상대 경로 (예: `images/cover.png`) |
 
-### card-gradient (표지)
+### tpl-a-cover (템플릿 A 표지)
 
 | Placeholder | 설명 |
 |-------------|------|
@@ -43,35 +41,34 @@
 | `{{title}}` | 메인 타이틀 (`<br>` 줄바꿈 포함) |
 | `{{subtitle}}` | 서브타이틀 |
 | `{{brand}}` | 브랜드명 |
-| `{{image}}` | 표지 이미지 상대 경로 (예: `images/cover.png`) |
+| `{{image}}` | 풀 이미지 배경 (background-image) |
 
-### card-white (내용)
+### tpl-a-content (템플릿 A 내용)
 
 | Placeholder | 설명 |
 |-------------|------|
 | `{{title}}` | 타이틀 |
 | `{{body-text}}` | 본문 텍스트 (`<br>` 줄바꿈 포함) |
 | `{{brand}}` | 브랜드명 |
+| `{{image}}` | 풀 이미지 배경 (background-image) |
 
-- card-white에는 `{{image}}` placeholder 없음 (이미지 불필요)
-
-### card-image-overlay (내용)
+### tpl-b-cover (템플릿 B 표지)
 
 | Placeholder | 설명 |
 |-------------|------|
 | `{{title}}` | 타이틀 (`<br>` 줄바꿈 포함) |
 | `{{subtitle}}` | 서브타이틀 |
 | `{{brand}}` | top-label 위치에 브랜드명으로 사용 |
-| `{{image}}` | 배경 이미지 상대 경로 (`.image-area`에 주입) |
+| `{{image}}` | 이미지 영역 배경 (.image-area에 주입) |
 
-### card-image-top (내용)
+### tpl-b-content (템플릿 B 내용)
 
 | Placeholder | 설명 |
 |-------------|------|
 | `{{title}}` | 타이틀 |
 | `{{body-text}}` | 본문 텍스트 (`<br>` 줄바꿈 포함) |
 | `{{brand}}` | 브랜드명 |
-| `{{image}}` | 상단 이미지 상대 경로 (`.image-area`에 주입) |
+| `{{image}}` | 상단 이미지 (.image-area에 주입) |
 
 ---
 
@@ -79,7 +76,7 @@
 
 ### 1. 템플릿에서 CSS 추출
 
-템플릿 파일의 `<style>` 블록 전체를 추출한다. 두 템플릿 파일의 CSS가 모두 필요한 경우 (표지 card-gradient + 내용 card-image-top 등), 양쪽 CSS를 합친다.
+선택된 템플릿 파일의 `<style>` 블록 전체를 추출한다.
 
 공통 리셋 CSS (`*`, `body`)는 한 번만 포함:
 
@@ -102,10 +99,13 @@ body {
 
 각 카드 타입의 HTML 블록을 추출한다. 블록 범위는 HTML 주석으로 식별:
 
-- `<!-- Card 1: Gradient Background -->` ~ 다음 `<!-- Card` 전까지
-- `<!-- Card 2: White Background -->` ~ `</body>` 전까지
-- `<!-- Card 1: Image Overlay -->` ~ 다음 `<!-- Card` 전까지
-- `<!-- Card 2: Image Top -->` ~ `</body>` 전까지
+**템플릿 A:**
+- `<!-- tpl-a-cover: -->` ~ 다음 `<!-- tpl-a-content: -->` 전까지
+- `<!-- tpl-a-content: -->` ~ `</body>` 전까지
+
+**템플릿 B:**
+- `<!-- tpl-b-cover: -->` ~ 다음 `<!-- tpl-b-content: -->` 전까지
+- `<!-- tpl-b-content: -->` ~ `</body>` 전까지
 
 ### 3. 카드별 placeholder 치환
 
@@ -118,7 +118,6 @@ body {
 이미지 경로 규칙:
 - 표지: `images/cover.png`
 - 내용 카드: `images/card-02.png`, `images/card-03.png`, ...
-- 이미지가 없는 카드 (card-white): `{{image}}` 없으므로 치환 불필요
 
 ### 4. render.html 조립
 
@@ -145,19 +144,16 @@ body {
       gap: 40px;
       padding: 40px;
     }
-    /* 표지 카드 CSS (card-gradient) */
-    /* ... full-image-case.html에서 추출 ... */
-
-    /* 내용 카드 CSS (선택된 타입) */
-    /* ... 해당 템플릿에서 추출 ... */
+    /* 선택된 템플릿 CSS */
+    /* ... template-a.html 또는 template-b.html에서 추출 ... */
   </style>
 </head>
 <body>
   <!-- 치환 완료된 카드들이 순서대로 배치 -->
-  <div class="card-gradient" id="card-01" style="background-image: url('images/cover.png')">
+  <div class="tpl-a-cover" id="card-01" style="background-image: url('images/cover.png')">
     ...
   </div>
-  <div class="card-image-top" id="card-02">
+  <div class="tpl-a-content" id="card-02" style="background-image: url('images/card-02.png')">
     ...
   </div>
   <!-- ...반복... -->

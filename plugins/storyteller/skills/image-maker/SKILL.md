@@ -28,7 +28,7 @@ description: "planner가 승인한 카드 구성을 받아 이미지 톤 협의 
 
 ### Step 2. 프롬프트 작성 + 즉시 생성
 
-톤 확정 후, 이미지가 필요한 각 카드에 대해:
+톤 확정 후, **모든 카드**(표지 + 내용)에 대해:
 
 1. planner의 `image-concept`을 기반으로 상세 영문 프롬프트 작성
 2. 모드별 공통 스타일 프리픽스 적용 (세트 전체 톤 통일)
@@ -40,24 +40,26 @@ description: "planner가 승인한 카드 구성을 받아 이미지 톤 협의 
 [모드별 스타일 프리픽스]
 [카드별 장면/컨셉 — image-concept 기반 상세 묘사]
 [카드 타입별 구도 지시]
+[no-text 지시]
 ```
+
+> **필수 규칙: 모든 프롬프트 끝에 아래 문구를 반드시 추가한다.**
+> ```
+> IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
+> ```
 
 #### 카드 타입별 구도 지시
 
 | 카드 타입 | 구도 지시 |
 |-----------|-----------|
-| **card-gradient** (표지) | 풀 프레임. 상단 밝게/디테일, 하단 어두워져도 OK. 시선을 끄는 메인 비주얼. |
-| **card-image-overlay** | 풀 프레임. 하단부 심플/어두운 영역 확보 (텍스트 올라감). 상단에 주요 비주얼. |
-| **card-image-top** | 상단 ~70%만 표시됨. 주요 요소 중앙~상단 배치. 하단 잘려도 구도 유지. |
+| **tpl-a-cover** (표지) | 풀 프레임. 상단 밝게/디테일, 하단 어두워져도 OK. 시선을 끄는 메인 비주얼. |
+| **tpl-a-content** (내용) | 풀 프레임. 하단부에 텍스트가 올라감. 전체적으로 조화로운 비주얼. |
+| **tpl-b-cover** (표지) | 풀 프레임. 하단부 심플/어두운 영역 확보 (텍스트 올라감). 상단에 주요 비주얼. |
+| **tpl-b-content** (내용) | 상단 ~70%만 표시됨. 주요 요소 중앙~상단 배치. 하단 잘려도 구도 유지. |
 
 #### 이미지 생성 대상
 
-| 카드 타입 | 이미지 필요 |
-|-----------|------------|
-| card-gradient (표지) | **필요** |
-| card-white (내용) | 불필요 — 스킵 |
-| card-image-overlay (내용) | **필요** |
-| card-image-top (내용) | **필요** |
+**모든 카드에 이미지가 필요하다** — 표지, 내용 구분 없이 전부 생성.
 
 #### nanobanana 호출 설정
 
