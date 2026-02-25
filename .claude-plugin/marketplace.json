@@ -51,6 +51,17 @@
       },
       "keywords": ["card-news", "instagram", "social-media", "copywriting", "image-generation", "playwright", "content-production"],
       "category": "marketing"
+    },
+    {
+      "name": "storyteller",
+      "source": "./plugins/storyteller",
+      "description": "3 skills for long-form storytelling card-news production: planner, image-maker, and renderer. Transforms newsletters and articles into 11-16 card sets with cinematic or conceptual imagery, rendered as 1080x1350 PNG via Playwright.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Yoojung Kim"
+      },
+      "keywords": ["storyteller", "card-news", "instagram", "long-form", "image-generation", "playwright", "content-production"],
+      "category": "marketing"
     }
   ]
 }
