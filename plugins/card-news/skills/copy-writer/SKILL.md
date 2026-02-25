@@ -1,0 +1,275 @@
+---
+name: card-news-copy-writer
+description: "Write copy for Instagram card-news (1080x1350). Plans card structure, writes all placeholders with strict character limits, and outputs structured markdown for evaluation. Use when user mentions: 카드뉴스 카피, card news copy, 카드뉴스 글, 카드뉴스 문구, write card news, 카드뉴스 텍스트, 카피 작성, card copy, 카드뉴스 초안"
+user-invocable: true
+---
+
+# Card-News Copy Writer
+
+> Plan card structure + write every placeholder's copy with strict character limits.
+> No tools — pure copywriting. Outputs structured markdown for copy-evaluator.
+
+---
+
+## Purpose
+
+Copy Writer handles the creative core of card-news production:
+1. Decide the card structure (how many cards, what type each card is)
+2. Write all placeholder text with strict character limits
+3. Self-audit before output
+4. Produce structured markdown that downstream skills consume
+
+---
+
+## Memory Auto-Load Protocol
+
+```
+1. Check card-news-memory/ exists → create from card-news-memory-template/ if missing
+2. Load card-news-memory/series-config.md
+   → Brand header name, account handle, default tags, color theme
+3. Load card-news-memory/copy-bank.md
+   → Past approved copy for few-shot reference (tone, structure patterns)
+4. Load brand-memory/voice-profile.md (read-only)
+   → Brand personality, tone descriptors, vocabulary preferences
+5. Optional: Load creative-memory/storytelling-frameworks.md (read-only)
+   → Narrative patterns and hooks
+6. Optional: Load research-memory/ files (read-only)
+   → Topic-specific facts, data, quotes for content sourcing
+```
+
+**Read the following BEFORE writing any copy:**
+1. `skills/card-news-maker/references/TEMPLATE-GUIDE.md` — placeholder별 상세 설명, 글자수 제한, 예시 (source of truth)
+2. `references/placeholder-constraints.md` — copy-writer용 추가 규칙, self-audit 체크리스트
+
+---
+
+## Input
+
+| Input | Required | Source |
+|-------|----------|--------|
+| Topic / Theme | Yes | User or orchestrator |
+| Card count | Yes | Default 4, range 2~10 |
+| Language | No | Default: 한국어 |
+| Specific angle / hook | No | User preference |
+| Target audience | No | series-config or user |
+
+---
+
+## Process
+
+### Step 1: Structure Planning
+
+Design the card sequence based on topic and card count.
+
+**Available card types:**
+
+| Type | Position | Purpose |
+|------|----------|---------|
+| `cover` | Always first | Brand header + headline + tags |
+| `content-image` | Middle | Image + title + body text |
+| `content-features` | Middle | 3 feature cards with icons |
+| `outro` | Always last | Closing message + account handle |
+
+**Structure rules:**
+- Card 1 = `cover` (mandatory)
+- Last card = `outro` (mandatory)
+- Middle cards = any combination of `content-image` and `content-features`
+- For 2 cards: cover + outro only
+- For 3 cards: cover + 1 content + outro
+- For 4 cards (default): cover + 2 content + outro
+- For 5+ cards: cover + 3+ content + outro
+
+**Present the proposed structure to the user for confirmation before writing copy.**
+
+Example for 4-card set:
+```
+Proposed Structure (4 cards):
+1. cover       — Hook + headline
+2. content-image   — Key visual + explanation
+3. content-features — 3 key points with icons
+4. outro       — Closing + CTA
+```
+
+---
+
+### Step 2: Write Copy
+
+Write all placeholders for each card, strictly following character limits from `references/placeholder-constraints.md`.
+
+#### Cover Card Copy
+
+| Field | Max | Write |
+|-------|-----|-------|
+| accent-text | 6 | Short exclamation or hook in handwriting style |
+| highlight-keyword | 6 | Core topic keyword with yellow highlight |
+| cover-title | 6 | Continuation of headline |
+| cover-subtitle | 20 | One-line context sentence |
+| tag-1 ~ tag-N | 8 each | 2~4 hashtag pills |
+
+**Cover writing tips:**
+- `highlight-keyword` + `cover-title` form one visual headline — ensure they read naturally together
+- `accent-text` is handwriting font — use casual, energetic tone (e.g., "핵심만 쏙", "알아볼까?")
+- Tags should categorize the topic, not repeat the headline
+
+#### Content-Image Card Copy
+
+| Field | Max | Write |
+|-------|-----|-------|
+| category | 8 | Category pill (e.g., #경제) |
+| highlight-keyword | 6 | Key term highlighted in yellow |
+| title-line-1 | 12 (incl. keyword) | First title line (keyword is inline) |
+| title-line-2 | 12 | Second title line |
+| body-line-1~3 | 20 each | Body text, 2~3 lines |
+
+**Content-image tips:**
+- `highlight-keyword` appears inline within `title-line-1` — budget character count accordingly
+- Body text should add context or explanation, not repeat the title
+- Write `image-alt` text describing the ideal image (this feeds into contents-manager)
+
+#### Content-Features Card Copy
+
+| Field | Max | Write |
+|-------|-----|-------|
+| category | 8 | Category pill |
+| highlight-keyword | 6 | Key term |
+| title-line-1 | 12 (incl. keyword) | First title line |
+| title-line-2 | 12 | Second title line |
+| feature-N-title (×3) | 12 each | Feature heading |
+| feature-N-description (×3) | 25 each | Feature explanation |
+| body-line-1~3 | 20 each | Summary text |
+
+**Content-features tips:**
+- 3 features should be parallel in structure (similar length, same grammatical pattern)
+- Feature descriptions should be self-contained — no "as mentioned above" references
+- Include `icon-hint` for each feature (a descriptive word like "heart", "clock", "shield") — contents-manager uses this to select Lucide icons
+
+#### Outro Card Copy
+
+| Field | Max | Write |
+|-------|-----|-------|
+| outro-line-1~3 | 12 each | Closing message, center-aligned |
+| account-handle | 15 | From series-config.md |
+
+**Outro tips:**
+- 2~3 lines that wrap up the topic with warmth
+- Include a soft CTA ("팔로우", "저장해두세요", etc.) or emotional close
+- Account handle comes from series-config — just reference it
+
+---
+
+### Step 3: Self-Audit
+
+Before outputting, verify EVERY placeholder:
+
+```
+Self-Audit Checklist:
+□ Every placeholder is within character limit (count each one)
+□ highlight-keyword + title-line-1 combined ≤ 12 chars
+□ Narrative flows: cover hooks → content explains → outro closes
+□ Brand voice matches voice-profile.md tone
+□ No placeholder left as {{template}}
+□ Tags are distinct and relevant
+□ Feature descriptions are parallel in structure
+□ Korean is natural (no 번역체)
+□ No information repeated between cards
+```
+
+**If ANY character limit is violated, fix it before outputting.**
+
+---
+
+### Step 4: Output
+
+Produce structured markdown in this exact format:
+
+```markdown
+# Card-News Copy: [Topic]
+
+> Date: [YYYY-MM-DD]
+> Cards: [N]
+> Language: [language]
+> Structure: cover → [types] → outro
+
+---
+
+## Card 1 — Cover
+
+- **accent-text**: [text] ([N]자)
+- **highlight-keyword**: [text] ([N]자)
+- **cover-title**: [text] ([N]자)
+- **cover-subtitle**: [text] ([N]자)
+- **tags**: [tag-1], [tag-2], [tag-3]
+
+## Card 2 — Content-Image
+
+- **category**: [text] ([N]자)
+- **highlight-keyword**: [text] ([N]자)
+- **title-line-1**: [text] ([N]자, keyword 포함)
+- **title-line-2**: [text] ([N]자)
+- **image-alt**: [ideal image description]
+- **icon-hint**: [not applicable for content-image]
+- **body-line-1**: [text] ([N]자)
+- **body-line-2**: [text] ([N]자)
+- **body-line-3**: [text] ([N]자)
+
+## Card 3 — Content-Features
+
+- **category**: [text]
+- **highlight-keyword**: [text] ([N]자)
+- **title-line-1**: [text] ([N]자)
+- **title-line-2**: [text] ([N]자)
+- **feature-1-title**: [text] ([N]자)
+- **feature-1-description**: [text] ([N]자)
+- **feature-1-icon-hint**: [descriptive word]
+- **feature-2-title**: [text] ([N]자)
+- **feature-2-description**: [text] ([N]자)
+- **feature-2-icon-hint**: [descriptive word]
+- **feature-3-title**: [text] ([N]자)
+- **feature-3-description**: [text] ([N]자)
+- **feature-3-icon-hint**: [descriptive word]
+- **body-line-1**: [text] ([N]자)
+- **body-line-2**: [text] ([N]자)
+- **body-line-3**: [text] ([N]자)
+
+## Card N — Outro
+
+- **outro-line-1**: [text] ([N]자)
+- **outro-line-2**: [text] ([N]자)
+- **outro-line-3**: [text] ([N]자)
+- **account-handle**: [from series-config]
+```
+
+**Character count notation:** Include the actual character count next to each text field in parentheses. This enables copy-evaluator to quickly verify limits.
+
+---
+
+## After PASS: Copy Bank Update
+
+When copy-evaluator returns **PASS** or **PASS WITH NOTES**, append the approved copy to `card-news-memory/copy-bank.md` following the format defined in that file.
+
+---
+
+## Quality Checklist
+
+- [ ] Every placeholder has explicit character count
+- [ ] No placeholder exceeds its limit
+- [ ] Cover headline (keyword + title) reads as one natural phrase
+- [ ] Narrative arc: hook → inform → detail → close
+- [ ] Brand voice is consistent throughout
+- [ ] Feature descriptions are parallel in structure
+- [ ] Body text adds value beyond the title
+- [ ] icon-hint provided for each content-features card feature
+- [ ] image-alt provided for each content-image card
+- [ ] Output format matches the exact markdown structure above
+
+---
+
+## What This Skill Does NOT Do
+
+- **Evaluate copy quality** → copy-evaluator
+- **Select icons** → contents-manager
+- **Generate images** → image-generator
+- **Render HTML/PNG** → card-news-maker
+- **Route pipeline** → orchestrator
+
+Copy Writer stays focused: **topic in → structured copy out**.
