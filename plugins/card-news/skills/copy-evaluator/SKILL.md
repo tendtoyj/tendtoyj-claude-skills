@@ -27,13 +27,15 @@ Copy Evaluator is the quality checkpoint between copy-writer and card-news-maker
 
 ```
 1. Load the copy-writer output (structured markdown — provided as input)
-2. Load card-news-memory/copy-bank.md
+2. Optional: Load card-news-memory/copy-bank.md
    → Compare against past approved copy for quality baseline
-3. Load brand-memory/voice-profile.md (read-only)
+   → If missing: skip — evaluate without baseline comparison
+3. Optional: Load brand-memory/voice-profile.md (read-only)
    → Brand voice reference for scoring Brand Voice dimension
-4. Load references/scoring-rubric.md
-   → Detailed 1/3/5 point examples for each scoring dimension
+   → If missing: score Brand Voice on internal consistency only (default: 3)
 ```
+
+**파일 로드 실패 시 평가를 중단하지 않는다.** 입력된 copy-writer 출력만 있으면 평가를 진행할 수 있다.
 
 ---
 
@@ -51,7 +53,7 @@ Copy Evaluator is the quality checkpoint between copy-writer and card-news-maker
 
 ### Step 1: Format Validation (Hard Gate)
 
-Check every placeholder against the character limits defined in `copy-writer/references/placeholder-constraints.md`.
+Check every placeholder against the character limits below.
 
 **Character limit table:**
 
@@ -92,7 +94,7 @@ Violations:
 
 ### Step 2: Quality Scoring
 
-Score the copy across 7 dimensions. **Read `references/scoring-rubric.md` for detailed 1/3/5 point criteria.**
+Score the copy across 7 dimensions.
 
 | Dimension | Weight | What to Evaluate |
 |-----------|--------|-----------------|
@@ -104,7 +106,16 @@ Score the copy across 7 dimensions. **Read `references/scoring-rubric.md` for de
 | **CTA Strength** | 10% | Does the outro drive action? Save, follow, share motivation |
 | **Korean Naturalness** | 5% | Does it read like native Korean? No 번역체, natural particles/endings |
 
-**Scoring scale per dimension: 1 (poor) / 2 / 3 (adequate) / 4 / 5 (excellent)**
+**Scoring scale per dimension: 1 (poor) / 3 (adequate) / 5 (excellent)**
+
+**Scoring guide per dimension:**
+- **Hook Power**: 5=curiosity gap, specific, emotional | 3=informative but flat | 1=generic, no reason to swipe
+- **Narrative Flow**: 5=clear 3-act arc, each card builds on previous | 3=individually good but disconnected | 1=no progression
+- **Information Density**: 5=every word earns its place, concrete data | 3=some filler | 1=mostly vague statements
+- **Brand Voice**: 5=unmistakably on-brand | 3=broadly correct but generic | 1=off-brand tone (if no voice-profile, score internal consistency)
+- **Highlight Relevance**: 5=highlighted terms carry core message | 3=relevant but not optimal | 1=filler words highlighted
+- **CTA Strength**: 5=specific action + specific benefit | 3=generic "팔로우 해주세요" | 1=no CTA or disconnected
+- **Korean Naturalness**: 5=perfectly native | 3=correct but stiff | 1=번역체
 
 **Weighted score calculation:**
 ```
@@ -208,19 +219,6 @@ When REVISION is issued:
 3. copy-writer resubmits revised copy
 4. copy-evaluator re-evaluates (full process, not just changed parts)
 5. Maximum 3 revision cycles — if still failing after 3, escalate to user
-
----
-
-## Quality Checklist
-
-- [ ] Every single placeholder character-counted (no exceptions)
-- [ ] Format validation completed before quality scoring
-- [ ] All 7 dimensions scored with brief justification notes
-- [ ] Weighted total calculated correctly
-- [ ] Verdict matches the score threshold
-- [ ] REVISION feedback is specific and actionable (not vague)
-- [ ] Strengths highlighted even in REVISION verdicts
-- [ ] Output format matches the templates above
 
 ---
 

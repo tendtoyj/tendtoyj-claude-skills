@@ -29,25 +29,20 @@ This skill **never creates content itself**. It reads memory to diagnose the cur
 On every invocation, BEFORE any routing:
 
 ```
-1. Check card-news-memory/ exists → create from card-news-memory-template/ if missing
-2. Read ALL .md files in card-news-memory/ (except README.md)
-   - series-config.md → Brand header, handle, tags, colors configured?
+1. Check card-news-memory/ exists
+   → If missing: create from card-news-memory-template/
+   → If creation fails: proceed with all values as "NOT SET"
+2. Try to read card-news-memory/ files:
+   - series-config.md → Brand header, handle, tags, colors
    - production-log.md → Recent production history
-   - copy-bank.md → Approved copy archive (for few-shot)
-3. Check brand-memory/voice-profile.md (read-only) → Brand tone available?
-4. Check creative-memory/visual-guidelines.md (read-only) → Visual identity available?
-5. Optional: Check research-memory/ → Topic research available?
-6. Build Production Status Dashboard (see Step 1)
+   - copy-bank.md → Approved copy archive
+   → Any file missing: mark as "NOT SET" in dashboard, continue
+3. Optional: Check brand-memory/voice-profile.md → Brand tone
+4. Optional: Check creative-memory/visual-guidelines.md → Visual identity
+   → These directories may not exist — mark as "MISSING" and continue
 ```
 
-### Access Rules
-
-| Memory | Permission | Usage |
-|--------|-----------|-------|
-| `brand-memory/` | Read-only | Voice tone, positioning |
-| `research-memory/` | Read-only | Research-based content sources |
-| `creative-memory/` | Read-only | Visual guidelines, storytelling |
-| `card-news-memory/` | Read & Write | Production state, copy bank, config |
+**어떤 파일이 없어도 orchestrator는 중단하지 않는다.** Dashboard에 현재 상태를 표시하고, 사용자에게 누락된 설정을 안내한 뒤 가능한 모드로 진행한다.
 
 ---
 
@@ -249,20 +244,6 @@ Suggest next options: make another set, modify copy, change theme, export for di
 | ← creative-memory | visual-guidelines.md → contents-manager, image-generator | Visual identity |
 | ← research-memory | topic research → copy-writer | Research-backed content |
 | → creative-mkt | card images → image-creator for variations | Visual asset reuse |
-
----
-
-## Quality Checklist
-
-Before presenting a production plan, verify:
-
-- [ ] Status Dashboard shows accurate state
-- [ ] Mode selection has clear rationale
-- [ ] series-config.md is configured (brand header, handle)
-- [ ] Execution path respects skill dependencies
-- [ ] Each step names the skill, its output, and required input
-- [ ] Card count is within 2~10 range
-- [ ] Copy-evaluator is included whenever copy-writer runs (no unevaluated copy)
 
 ---
 

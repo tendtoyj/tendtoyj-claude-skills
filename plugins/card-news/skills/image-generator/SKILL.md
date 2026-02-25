@@ -26,21 +26,17 @@ Image Generator produces the visual assets that go into `content-image` card typ
 ```
 1. Load contents-manager output (Visual Asset Plan — provided as input)
    → Image prompts, aspect ratios, save paths
-2. Load creative-memory/visual-guidelines.md (read-only)
-   → Color palette, image style preferences
-3. Load card-news-memory/series-config.md
-   → Color theme overrides
-4. Load references/content-image-patterns.md
+2. Read references/content-image-patterns.md
    → Prompt refinement patterns and style templates
+   → If missing: use the built-in prompt formula in Step 1
+3. Optional: Load card-news-memory/series-config.md
+   → Color theme overrides
+   → If missing: use default palette (white/black/yellow #fff3a0)
+4. Optional: Load creative-memory/visual-guidelines.md (read-only)
+   → If missing: use clean editorial style as default
 ```
 
-### Access Rules
-
-| Memory | Permission |
-|--------|-----------|
-| `brand-memory/` | Read-only |
-| `creative-memory/` | Read-only |
-| `card-news-memory/` | Read-only |
+**필수 입력은 contents-manager output뿐이다.** 나머지 파일 로드 실패 시 기본값으로 진행.
 
 ---
 
@@ -69,8 +65,6 @@ For each image prompt from the Visual Asset Plan, verify:
 - [ ] Negative prompt includes standard exclusions
 
 **If any requirement is missing, add it before generation.**
-
-Read `references/content-image-patterns.md` for prompt refinement techniques.
 
 ---
 
@@ -180,19 +174,6 @@ card-news/ai-trends-2026-02-25/outro-icon.png
 | Default model | auto |
 | Max resolution | 4K (Pro) / 1024px (Flash) |
 | Prompt limit | 8,192 characters |
-
----
-
-## Quality Checklist
-
-- [ ] All images are 16:9 aspect ratio
-- [ ] No text visible in any generated image
-- [ ] No watermarks or logos
-- [ ] Images are relevant to card topic
-- [ ] Clean editorial style maintained
-- [ ] Files saved with correct naming convention
-- [ ] Outro icon generated or accounted for
-- [ ] Output report completed
 
 ---
 

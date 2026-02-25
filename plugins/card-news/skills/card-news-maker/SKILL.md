@@ -24,30 +24,24 @@ Card-News Maker is the assembler and renderer. It:
 ## Memory Auto-Load Protocol
 
 ```
-1. Load approved copy (from copy-writer, after copy-evaluator PASS)
-   → All placeholder values per card
-2. Load contents-manager output (Visual Asset Plan)
-   → Icon SVG paths, image file paths
-3. Load card-news-memory/series-config.md
-   → Brand header name, account handle, color overrides, font overrides
-4. Read references/card-news-template.html ★ CRITICAL ★
-   → 원본 HTML 템플릿 — 이 파일이 source of truth
-   → 모든 CSS, 4개 카드 타입, placeholder가 이미 포함됨
-5. Read references/TEMPLATE-GUIDE.md
-   → Placeholder 목록, 글자수 제한, 사용 팁
-6. Load references/card-type-components.md
-   → 가변 카드(2~10장) 조립 가이드, color override 방법
-7. Load references/playwright-pipeline.md ★ CRITICAL ★
-   → Step-by-step rendering instructions
+Pipeline inputs (대화 컨텍스트에서 받음):
+1. Approved copy (from copy-writer, after copy-evaluator PASS)
+2. Contents-manager output (Visual Asset Plan — icon SVGs, image paths)
+
+★ CRITICAL — 반드시 읽어야 하는 reference 파일:
+3. references/card-news-template.html — 원본 HTML (source of truth)
+4. references/card-type-components.md — 가변 카드 조립 가이드
+5. references/playwright-pipeline.md — 렌더링 절차
+
+Optional:
+6. card-news-memory/series-config.md
+   → Brand header, account handle, color overrides
+   → If missing: use template defaults (TODAY'S PICKS, @account)
+7. references/TEMPLATE-GUIDE.md — placeholder 참고용 (필수 아님)
 ```
 
-### Access Rules
-
-| Memory | Permission |
-|--------|-----------|
-| `brand-memory/` | Read-only |
-| `creative-memory/` | Read-only |
-| `card-news-memory/` | Read & Write (production-log.md) |
+**reference 파일 3~5가 없으면 렌더링 불가 — 사용자에게 알리고 중단한다.**
+**series-config 등 optional 파일은 없어도 기본값으로 진행한다.**
 
 ---
 
@@ -205,20 +199,6 @@ Present to the user:
 - Edit `cards.html` to modify copy or colors, then re-render
 - Run image-generator with different prompts for alternative visuals
 ```
-
----
-
-## Quality Checklist
-
-- [ ] HTML assembled with all placeholders replaced (no `{{...}}` remaining)
-- [ ] CSS variables overridden per series-config
-- [ ] Font links included in `<head>`
-- [ ] All image `src` paths resolve correctly
-- [ ] Each card rendered as isolated 1080×1350 PNG
-- [ ] Fonts loaded before screenshot (no fallback fonts visible)
-- [ ] Images loaded before screenshot (no gray placeholders)
-- [ ] production-log.md updated
-- [ ] Output summary presented to user
 
 ---
 

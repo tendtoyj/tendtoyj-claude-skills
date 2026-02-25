@@ -7,7 +7,7 @@ user-invocable: true
 # Card-News Contents Manager
 
 > Plan visual assets for card-news: Lucide icon selection + AI image prompts.
-> No tools — produces structured output consumed by image-generator and card-news-maker.
+> Reads reference files (lucide-icon-catalog). Produces structured output consumed by image-generator and card-news-maker.
 
 ---
 
@@ -25,13 +25,18 @@ Contents Manager bridges copy and visuals. It:
 
 ```
 1. Load copy-writer output (structured copy markdown — provided as input)
-2. Load creative-memory/visual-guidelines.md (read-only)
-   → Color palette, image style, visual do's & don'ts
-3. Load card-news-memory/series-config.md
-   → Color theme, brand preferences
-4. Load references/lucide-icon-catalog.md
+2. Read references/lucide-icon-catalog.md ★ REQUIRED ★
    → Available icons with SVG paths by category
+   → 이 파일 없이는 icon selection 불가
+3. Optional: Load card-news-memory/series-config.md
+   → Color theme, brand preferences
+   → If missing: use default card-news palette (white/black/yellow)
+4. Optional: Load creative-memory/visual-guidelines.md (read-only)
+   → Color palette, image style preferences
+   → If missing: use clean editorial style as default
 ```
+
+**필수 파일은 lucide-icon-catalog.md뿐이다.** 나머지 로드 실패 시 기본값으로 진행.
 
 ---
 
@@ -195,19 +200,6 @@ Compile everything into a structured document:
 - Color theme: [from series-config or visual guidelines]
 - All images: 16:9, no text, magazine-grade
 ```
-
----
-
-## Quality Checklist
-
-- [ ] Every content-features card has exactly 3 icons selected
-- [ ] Every content-image card has an image prompt
-- [ ] All icons come from lucide-icon-catalog.md with valid SVG paths
-- [ ] Image prompts specify 16:9 ratio and "no text" constraint
-- [ ] Icon selection considers visual consistency within each card
-- [ ] Prompts reference the topic and visual guidelines
-- [ ] Outro icon addressed (AI-generated or user-provided)
-- [ ] Output follows the structured Visual Asset Plan format
 
 ---
 
