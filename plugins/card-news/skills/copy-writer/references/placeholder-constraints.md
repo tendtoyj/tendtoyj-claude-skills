@@ -44,22 +44,6 @@ TEMPLATE-GUIDE.md에서 추출한 요약 (상세 내용은 원본 참조):
 - 한영 혼용 placeholder는 실질적으로 **15% 적게** 써야 안전
 - `…`, `!`, `.`는 좁고, `ㅋ`, `ㅎ`은 전각 폭
 
-### Self-Audit 체크리스트
-
-카피 출력 전 반드시 확인:
-
-```
-□ 모든 placeholder 글자수 카운트 완료
-□ highlight-keyword + title-line-1 합산 ≤ 12
-□ Cover → Content → Outro 서사 흐름 자연스러움
-□ brand voice와 톤 일치
-□ {{placeholder}} 원문 그대로 남아있는 곳 없음
-□ 태그 2~4개, 중복 없음
-□ feature description 3개가 구조적으로 병렬
-□ 한국어 자연스러움 (번역체 아님)
-□ 카드 간 정보 중복 없음
-```
-
 ---
 
 ## 원본 파일

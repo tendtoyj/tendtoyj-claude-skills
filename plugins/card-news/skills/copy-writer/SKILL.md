@@ -16,8 +16,7 @@ user-invocable: true
 Copy Writer handles the creative core of card-news production:
 1. Decide the card structure (how many cards, what type each card is)
 2. Write all placeholder text with strict character limits
-3. Self-audit before output
-4. Produce structured markdown that downstream skills consume
+3. Produce structured markdown that downstream skills consume
 
 ---
 
@@ -25,21 +24,27 @@ Copy Writer handles the creative core of card-news production:
 
 ```
 1. Check card-news-memory/ exists → create from card-news-memory-template/ if missing
+   → ⚠ If creation fails, SKIP memory loading and proceed with defaults
 2. Load card-news-memory/series-config.md
    → Brand header name, account handle, default tags, color theme
+   → If missing: use placeholder values (header="Brand", handle="@account")
 3. Load card-news-memory/copy-bank.md
    → Past approved copy for few-shot reference (tone, structure patterns)
+   → If missing: skip — write copy without few-shot reference
 4. Load brand-memory/voice-profile.md (read-only)
    → Brand personality, tone descriptors, vocabulary preferences
+   → If missing: skip — use neutral professional Korean tone
 5. Optional: Load creative-memory/storytelling-frameworks.md (read-only)
    → Narrative patterns and hooks
 6. Optional: Load research-memory/ files (read-only)
    → Topic-specific facts, data, quotes for content sourcing
 ```
 
+**Error handling:** 필수 파일(series-config, copy-bank) 로드 실패 시, 사용자에게 경고 메시지를 출력하고 기본값으로 진행한다. 파일 로드 실패가 전체 프로세스를 중단시켜서는 안 된다.
+
 **Read the following BEFORE writing any copy:**
 1. `skills/card-news-maker/references/TEMPLATE-GUIDE.md` — placeholder별 상세 설명, 글자수 제한, 예시 (source of truth)
-2. `references/placeholder-constraints.md` — copy-writer용 추가 규칙, self-audit 체크리스트
+2. `references/placeholder-constraints.md` — copy-writer용 추가 규칙
 
 ---
 
@@ -80,6 +85,10 @@ Design the card sequence based on topic and card count.
 - For 5+ cards: cover + 3+ content + outro
 
 **Present the proposed structure to the user for confirmation before writing copy.**
+
+- 사용자가 구조를 수정 요청하면 반영 후 다시 제안한다.
+- **사용자가 별다른 의견 없이 진행을 요청하거나, 주제만 제시한 경우에는 기본 구조(4장: cover → content-image → content-features → outro)로 바로 진행한다.**
+- 구조 확인에 최대 1회 재제안까지만 허용. 2회 이상 반복되면 기본 구조로 확정하고 카피 작성을 시작한다.
 
 Example for 4-card set:
 ```
@@ -157,28 +166,7 @@ Write all placeholders for each card, strictly following character limits from `
 
 ---
 
-### Step 3: Self-Audit
-
-Before outputting, verify EVERY placeholder:
-
-```
-Self-Audit Checklist:
-□ Every placeholder is within character limit (count each one)
-□ highlight-keyword + title-line-1 combined ≤ 12 chars
-□ Narrative flows: cover hooks → content explains → outro closes
-□ Brand voice matches voice-profile.md tone
-□ No placeholder left as {{template}}
-□ Tags are distinct and relevant
-□ Feature descriptions are parallel in structure
-□ Korean is natural (no 번역체)
-□ No information repeated between cards
-```
-
-**If ANY character limit is violated, fix it before outputting.**
-
----
-
-### Step 4: Output
+### Step 3: Output
 
 Produce structured markdown in this exact format:
 
@@ -246,21 +234,6 @@ Produce structured markdown in this exact format:
 ## After PASS: Copy Bank Update
 
 When copy-evaluator returns **PASS** or **PASS WITH NOTES**, append the approved copy to `card-news-memory/copy-bank.md` following the format defined in that file.
-
----
-
-## Quality Checklist
-
-- [ ] Every placeholder has explicit character count
-- [ ] No placeholder exceeds its limit
-- [ ] Cover headline (keyword + title) reads as one natural phrase
-- [ ] Narrative arc: hook → inform → detail → close
-- [ ] Brand voice is consistent throughout
-- [ ] Feature descriptions are parallel in structure
-- [ ] Body text adds value beyond the title
-- [ ] icon-hint provided for each content-features card feature
-- [ ] image-alt provided for each content-image card
-- [ ] Output format matches the exact markdown structure above
 
 ---
 
