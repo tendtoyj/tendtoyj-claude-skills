@@ -47,12 +47,16 @@ placeholder 목록 및 카드 타입별 상세는 [references/html-assembly.md](
 
 Playwright MCP 도구를 사용하여 렌더링:
 
-1. `browser_navigate`로 `render.html`을 `file://` 프로토콜로 열기
-2. 폰트/이미지 로딩 대기 — `browser_evaluate`로 `document.fonts.ready` 확인 후 2초 추가 대기
-3. `browser_take_screenshot`으로 각 카드를 개별 캡처:
+1. `render.html`이 있는 디렉토리에서 로컬 HTTP 서버 기동:
+   - `python3 -m http.server 8765` (백그라운드 실행)
+   - **`file://` 프로토콜은 Playwright MCP에서 차단되므로 반드시 로컬 서버를 사용한다**
+2. `browser_navigate`로 `http://localhost:8765/render.html` 열기
+3. 폰트/이미지 로딩 대기 — `browser_evaluate`로 `document.fonts.ready` 확인 후 2초 추가 대기
+4. `browser_take_screenshot`으로 각 카드를 개별 캡처:
    - `selector`: `#card-01`, `#card-02`, ...
    - 파일명: `card-01.png`, `card-02.png`, ...
    - 순서: 표지(01) → 내용 카드들(02~)
+5. 렌더링 완료 후 로컬 서버 프로세스 종료
 
 상세 파이프라인은 [references/playwright-pipeline.md](references/playwright-pipeline.md) 참조.
 

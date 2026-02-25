@@ -12,12 +12,16 @@
 
 ## 렌더링 순서
 
+> **`file://` 프로토콜은 Playwright MCP에서 차단된다. 반드시 로컬 HTTP 서버를 통해 접근한다.**
+
 ```
-1. browser_navigate → file:///absolute/path/to/render.html
-2. browser_resize → 1080×1350
-3. 폰트/이미지 로딩 대기 (browser_evaluate)
-4. 개별 카드 스크린샷 (card-01 ~ card-NN)
-5. browser_close
+1. 로컬 서버 기동 → render.html 디렉토리에서 python3 -m http.server 8765 (백그라운드)
+2. browser_navigate → http://localhost:8765/render.html
+3. browser_resize → 1080×1350
+4. 폰트/이미지 로딩 대기 (browser_evaluate)
+5. 개별 카드 스크린샷 (card-01 ~ card-NN)
+6. browser_close
+7. 로컬 서버 종료 → kill %1 또는 해당 PID로 종료
 ```
 
 ---
