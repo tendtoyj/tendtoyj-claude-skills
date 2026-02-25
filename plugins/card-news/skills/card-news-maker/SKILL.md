@@ -109,13 +109,15 @@ Save the assembled HTML to:
 
 Copy any generated images to the same directory (if not already there).
 
+**Outro 아이콘:** 기본 신문 아이콘이 `references/assets/outro-icon-default.png`에 포함되어 있다. 사용자가 별도 아이콘을 제공하지 않으면 이 파일을 출력 디렉토리에 복사하여 사용한다.
+
 Verify the file structure:
 ```
 card-news/[topic]-[YYYY-MM-DD]/
 ├── cards.html
 ├── img-card-2.png (if content-image cards exist)
 ├── img-card-3.png (etc.)
-└── outro-icon.png (if AI-generated)
+└── outro-icon.png (default or AI-generated)
 ```
 
 ---
