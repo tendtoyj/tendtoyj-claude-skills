@@ -62,25 +62,25 @@ Dark cinematic scene. High contrast, deep shadows with dramatic chiaroscuro ligh
 ### tpl-a-cover (템플릿 A 표지)
 
 ```
-Full-frame composition. Upper area bright and detailed; lower area may darken naturally. Eye-catching hero visual that works as a cover image.
+Full-frame composition. Use a slightly elevated camera angle so the main subject sits naturally in the upper portion of the frame. The scene should extend continuously — floor, surface, or environment receding toward the bottom — rather than cutting off abruptly. Upper area bright and detailed; lower area may darken or soften naturally. Eye-catching hero visual that works as a cover image.
 ```
 
 ### tpl-a-content (템플릿 A 내용)
 
 ```
-Full-frame composition. The image serves as a background for overlaid text. Keep the overall visual balanced and not overly complex, allowing text to remain legible.
+Full-frame composition. Use a slightly elevated camera angle to place the main subject above center. The background and surface should continue naturally below the subject, creating a smooth visual flow from top to bottom. The image serves as a background for overlaid text. Keep the overall visual balanced and not overly complex, allowing text to remain legible.
 ```
 
 ### tpl-b-cover (템플릿 B 표지)
 
 ```
-Full-frame composition. Keep the lower third simple or dark to accommodate text overlay. Place the main visual interest in the upper two-thirds.
+Full-frame composition. Use a slightly elevated or bird's-eye camera angle so the main subject naturally occupies the upper portion of the frame. The scene should continue below — a receding surface, ground plane, or environment extending toward the bottom edge — keeping the lower area visually calm but not artificially empty. The visual weight and focal point should sit in the upper half of the image.
 ```
 
 ### tpl-b-content (템플릿 B 내용)
 
 ```
-Composition optimized for top-crop display (top ~70% visible). Place key elements in the center-to-upper area. The bottom may be cropped without losing the composition.
+Composition optimized for top-crop display (top ~70% visible). Use a slightly elevated camera angle so the main subject sits in the upper portion of the frame. Let the scene's surface or environment continue naturally below, providing breathing room under the subject. The bottom portion may be cropped without losing the composition.
 ```
 
 ---
@@ -97,7 +97,7 @@ Photorealistic cinematic scene. Dramatic natural lighting — golden hour glow, 
 
 A young man in his twenties assembling a computer in a cluttered 1970s Silicon Valley garage. Wooden workbench covered with circuit boards and soldering tools. Warm sunlight filtering through a half-open garage door, casting long shadows across the scene.
 
-Full-frame composition. Keep the lower third simple or dark to accommodate text overlay. Place the main visual interest in the upper two-thirds.
+Full-frame composition. Use a slightly elevated or bird's-eye camera angle so the main subject naturally occupies the upper portion of the frame. The scene should continue below — a receding surface, ground plane, or environment extending toward the bottom edge — keeping the lower area visually calm but not artificially empty. The visual weight and focal point should sit in the upper half of the image.
 
 IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 ```
@@ -112,7 +112,7 @@ Conceptual editorial product art. Clean studio setting with beige/cream backdrop
 
 A vintage pastel-colored washing machine with its door open, dollar bills and gold coins tumbling out onto a pristine surface. Soap bubbles floating around the bills. The scene is arranged like a carefully styled product photograph.
 
-Composition optimized for top-crop display (top ~70% visible). Place key elements in the center-to-upper area. The bottom may be cropped without losing the composition.
+Composition optimized for top-crop display (top ~70% visible). Use a slightly elevated camera angle so the main subject sits in the upper portion of the frame. Let the scene's surface or environment continue naturally below, providing breathing room under the subject. The bottom portion may be cropped without losing the composition.
 
 IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 ```
@@ -127,7 +127,7 @@ Dark cinematic scene. High contrast, deep shadows with dramatic chiaroscuro ligh
 
 A dimly lit trading floor at night. Rows of monitors casting blue-white glow on empty leather chairs. A single red ticker arrow pointing downward dominates the central screen. Papers scattered on the floor suggest hasty departure.
 
-Full-frame composition. Upper area bright and detailed; lower area may darken naturally. Eye-catching hero visual that works as a cover image.
+Full-frame composition. Use a slightly elevated camera angle so the main subject sits naturally in the upper portion of the frame. The scene should extend continuously — floor, surface, or environment receding toward the bottom — rather than cutting off abruptly. Upper area bright and detailed; lower area may darken or soften naturally. Eye-catching hero visual that works as a cover image.
 
 IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 ```
