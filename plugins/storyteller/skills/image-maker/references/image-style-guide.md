@@ -100,6 +100,8 @@ A young man in his twenties assembling a computer in a cluttered 1970s Silicon V
 Full-frame composition. Use a slightly elevated or bird's-eye camera angle so the main subject naturally occupies the upper portion of the frame. The scene should continue below — a receding surface, ground plane, or environment extending toward the bottom edge — keeping the lower area visually calm but not artificially empty. The visual weight and focal point should sit in the upper half of the image.
 
 IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
+
+Single unified image. One camera angle, one continuous scene. Do NOT create grids, collages, multi-panel layouts, split compositions, or montages.
 ```
 
 ### 예시 2: Mode B + tpl-b-content
@@ -115,6 +117,8 @@ A vintage pastel-colored washing machine with its door open, dollar bills and go
 Composition optimized for top-crop display (top ~70% visible). Use a slightly elevated camera angle so the main subject sits in the upper portion of the frame. Let the scene's surface or environment continue naturally below, providing breathing room under the subject. The bottom portion may be cropped without losing the composition.
 
 IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
+
+Single unified image. One camera angle, one continuous scene. Do NOT create grids, collages, multi-panel layouts, split compositions, or montages.
 ```
 
 ### 예시 3: Mode E + tpl-a-cover
@@ -130,6 +134,8 @@ A dimly lit trading floor at night. Rows of monitors casting blue-white glow on 
 Full-frame composition. Use a slightly elevated camera angle so the main subject sits naturally in the upper portion of the frame. The scene should extend continuously — floor, surface, or environment receding toward the bottom — rather than cutting off abruptly. Upper area bright and detailed; lower area may darken or soften naturally. Eye-catching hero visual that works as a cover image.
 
 IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
+
+Single unified image. One camera angle, one continuous scene. Do NOT create grids, collages, multi-panel layouts, split compositions, or montages.
 ```
 
 ---
@@ -138,27 +144,29 @@ IMPORTANT: Do NOT include any text, letters, words, numbers, typography, caption
 
 모드별 `system_instruction`으로 전달하여 세트 전체 일관성을 확보한다.
 
+> **공통 규칙:** "series"라는 표현을 사용하지 않는다. Gemini 모델이 "series"를 여러 이미지 합성으로 해석하는 경향이 있으므로 "consistent style"로 대체한다. 모든 system_instruction에 anti-grid 지시를 포함한다.
+
 ### Mode A
 ```
-You are generating images for a card news series. Maintain consistent cinematic vintage aesthetic throughout: photorealistic, warm gold/amber/beige tones, dramatic natural lighting, subtle film grain, gentle vintage color grading. Every image should feel like it belongs to the same editorial photo series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
+You are generating a single editorial image. Maintain consistent cinematic vintage aesthetic: photorealistic, warm gold/amber/beige tones, dramatic natural lighting, subtle film grain, gentle vintage color grading. Every image should match the same editorial photo style. Output exactly one unified image — no grids, collages, multi-panel layouts, or split compositions. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode B
 ```
-You are generating images for a card news series. Maintain consistent conceptual editorial style throughout: clean beige/cream studio backdrop, miniature diorama aesthetic, Wes Anderson-inspired symmetry, warm neutral tones, soft even lighting. Every image should feel like it belongs to the same curated product art collection. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
+You are generating a single editorial image. Maintain consistent conceptual editorial style: clean beige/cream studio backdrop, miniature diorama aesthetic, Wes Anderson-inspired symmetry, warm neutral tones, soft even lighting. Every image should match the same curated product art style. Output exactly one unified image — no grids, collages, multi-panel layouts, or split compositions. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode C
 ```
-You are generating images for a card news series. Maintain consistent editorial minimalist aesthetic throughout: clean bright backdrop, single object or minimal composition, restrained color palette, generous negative space, modern airy feel. Every image should feel like it belongs to the same minimalist editorial series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
+You are generating a single editorial image. Maintain consistent editorial minimalist aesthetic: clean bright backdrop, single object or minimal composition, restrained color palette, generous negative space, modern airy feel. Every image should match the same minimalist editorial style. Output exactly one unified image — no grids, collages, multi-panel layouts, or split compositions. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode D
 ```
-You are generating images for a card news series. Maintain consistent surreal dreamlike aesthetic throughout: unexpected scale shifts, floating elements, warm-to-neutral tones, soft volumetric lighting, rich imaginative detail. Every image should feel like it belongs to the same otherworldly editorial series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
+You are generating a single editorial image. Maintain consistent surreal dreamlike aesthetic: unexpected scale shifts, floating elements, warm-to-neutral tones, soft volumetric lighting, rich imaginative detail. Every image should match the same otherworldly editorial style. Output exactly one unified image — no grids, collages, multi-panel layouts, or split compositions. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```
 
 ### Mode E
 ```
-You are generating images for a card news series. Maintain consistent dark cinematic aesthetic throughout: high contrast, deep shadows, cool/neutral palette, noir atmosphere, dramatic chiaroscuro lighting. Every image should feel like it belongs to the same moody editorial series. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
+You are generating a single editorial image. Maintain consistent dark cinematic aesthetic: high contrast, deep shadows, cool/neutral palette, noir atmosphere, dramatic chiaroscuro lighting. Every image should match the same moody editorial style. Output exactly one unified image — no grids, collages, multi-panel layouts, or split compositions. CRITICAL: Never include any text, letters, words, numbers, typography, captions, labels, or watermarks in the generated images. All images must be purely visual with zero textual elements.
 ```

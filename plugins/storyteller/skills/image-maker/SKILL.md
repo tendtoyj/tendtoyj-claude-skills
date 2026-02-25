@@ -41,12 +41,37 @@ description: "planner가 승인한 카드 구성을 받아 이미지 톤 협의 
 [카드별 장면/컨셉 — image-concept 기반 상세 묘사]
 [카드 타입별 구도 지시]
 [no-text 지시]
+[single-image 지시]
 ```
 
-> **필수 규칙: 모든 프롬프트 끝에 아래 문구를 반드시 추가한다.**
+> **필수 규칙 1: 모든 프롬프트 끝에 아래 문구를 반드시 추가한다.**
 > ```
 > IMPORTANT: Do NOT include any text, letters, words, numbers, typography, captions, labels, watermarks, or written characters of any kind in the image. The image must be purely visual with zero textual elements.
 > ```
+
+> **필수 규칙 2: 모든 프롬프트 끝에 아래 문구를 반드시 추가한다.**
+> ```
+> Single unified image. One camera angle, one continuous scene. Do NOT create grids, collages, multi-panel layouts, split compositions, or montages.
+> ```
+
+#### 프롬프트 작성 원칙: 단일 시점 원칙
+
+Gemini 이미지 모델은 프롬프트에 여러 시점·디테일 포인트가 나열되면 이를 개별 패널로 분리해 2x2 그리드로 합성하는 경향이 있다. 이를 방지하기 위해 **반드시** 아래 원칙을 지킨다.
+
+**하나의 프롬프트 = 하나의 카메라 앵글 = 하나의 장면**
+
+- **금지:** 한 프롬프트에 여러 시선·동작·순간을 나열
+  - 나쁜 예: "체스판 전경 + 빨간 여왕 클로즈업 + 앨리스 달리는 모습 + 정지된 풍경"
+  - 나쁜 예: "얼음 전체 형태 + 녹아내리는 중앙부 + 물방울 떨어지는 순간 + 웅덩이"
+- **허용:** 하나의 고정 시점에서 볼 수 있는 단일 장면만 묘사
+  - 좋은 예: "A red chess queen towering over a miniature chessboard, tiny figures visible between the pieces"
+  - 좋은 예: "A block of ice on a wooden surface, partially melted with a small pool of water forming at its base"
+
+**체크리스트 — 프롬프트 작성 후 자가 검증:**
+1. 묘사된 장면을 한 장의 사진으로 찍을 수 있는가? → No면 단순화
+2. 카메라 앵글이 하나인가? (클로즈업 + 전경 혼재 금지) → 하나만 선택
+3. 시간 순서가 섞여 있지 않은가? (녹기 전 + 녹는 중 + 녹은 후 금지) → 하나의 순간만 선택
+4. 나열된 오브젝트가 하나의 프레임에 자연스럽게 공존하는가? → No면 핵심 오브젝트 1~2개로 축소
 
 #### 템플릿 매핑
 
