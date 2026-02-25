@@ -6,8 +6,7 @@
 2. [브라우저 설정](#브라우저-설정)
 3. [로딩 대기 전략](#로딩-대기-전략)
 4. [개별 카드 스크린샷](#개별-카드-스크린샷)
-5. [미리보기 스크린샷](#미리보기-스크린샷)
-6. [에러 처리](#에러-처리)
+5. [에러 처리](#에러-처리)
 
 ---
 
@@ -18,8 +17,7 @@
 2. browser_resize → 1080×1350
 3. 폰트/이미지 로딩 대기 (browser_evaluate)
 4. 개별 카드 스크린샷 (card-01 ~ card-NN)
-5. 미리보기 스크린샷 (#preview)
-6. browser_close
+5. browser_close
 ```
 
 ---
@@ -90,14 +88,6 @@ JSON.stringify({ x: rect.x, y: rect.y, width: rect.width, height: rect.height })
 ```
 
 바운딩 박스로 clip 옵션 사용.
-
----
-
-## 미리보기 스크린샷
-
-1. 뷰포트를 넓게 조정: `browser_resize: width=1200, height=800`
-2. `#preview` 셀렉터로 스크린샷 → `preview.png`
-3. 뷰포트 복원 불필요 (이후 브라우저 종료)
 
 ---
 

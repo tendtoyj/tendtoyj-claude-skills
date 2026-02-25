@@ -56,17 +56,9 @@ Playwright MCP 도구를 사용하여 렌더링:
 
 상세 파이프라인은 [references/playwright-pipeline.md](references/playwright-pipeline.md) 참조.
 
-### Step 4. 미리보기 생성
-
-모든 카드를 축소하여 한 화면에 보여주는 프리뷰 이미지 생성:
-
-1. `render.html`에 미리보기 섹션 추가 (카드들을 20% 축소 그리드 배치)
-2. `#preview` 셀렉터로 `browser_take_screenshot` → `preview.png`
-
-### Step 5. 완료 보고
+### Step 4. 완료 보고
 
 - 생성된 파일 목록 출력
-- `preview.png`를 Read 도구로 표시하여 유저에게 미리보기 제공
 - 파일 저장 경로 안내
 
 ## 출력 파일 구조
@@ -77,7 +69,6 @@ storyteller/[주제]-[YYYY-MM-DD]/
 ├── card-02.png          ← 내용 1
 ├── ...
 ├── card-NN.png          ← 마지막 내용 카드
-├── preview.png          ← 전체 미리보기
 ├── images/              ← image-maker가 생성한 원본 이미지
 └── render.html          ← 조립된 HTML (디버깅/재렌더링용)
 ```

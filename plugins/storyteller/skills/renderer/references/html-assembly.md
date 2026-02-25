@@ -6,8 +6,6 @@
 2. [Placeholder 목록](#placeholder-목록)
 3. [조립 절차](#조립-절차)
 4. [render.html 최종 구조](#renderhtml-최종-구조)
-5. [미리보기 섹션](#미리보기-섹션)
-
 ---
 
 ## 템플릿 파일 위치
@@ -166,43 +164,3 @@ body {
 - body는 `flex-direction: column` (카드 세로 나열)
 - 각 카드에 `id="card-NN"` 부여 (Playwright 셀렉터용)
 
----
-
-## 미리보기 섹션
-
-모든 카드 렌더링 후, render.html의 `</body>` 앞에 미리보기 섹션 추가:
-
-```html
-<div class="preview-grid" id="preview">
-  <div class="card-wrapper">
-    <!-- card-01 복제본 (id 제거) -->
-  </div>
-  <div class="card-wrapper">
-    <!-- card-02 복제본 (id 제거) -->
-  </div>
-  <!-- ...반복... -->
-</div>
-```
-
-미리보기 CSS (기존 `<style>`에 추가):
-
-```css
-.preview-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 216px);
-  gap: 16px;
-  padding: 24px;
-  background: #f5f5f5;
-}
-.preview-grid .card-wrapper {
-  width: 216px;
-  height: 270px;
-  overflow: hidden;
-}
-.preview-grid .card-wrapper > div {
-  transform: scale(0.2);
-  transform-origin: top left;
-}
-```
-
-`#preview` 셀렉터로 스크린샷 → `preview.png`
