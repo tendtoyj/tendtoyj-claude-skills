@@ -19,13 +19,10 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 
 세트 전체에 사용할 템플릿을 **A 또는 B 중 택 1**:
 
-- **템플릿 A (Full Image)** — 이미지가 카드 전체를 채움
-  - 표지: `tpl-a-cover` — 풀 이미지 + 그라데이션 오버레이 + 타이틀 강조
-  - 내용: `tpl-a-content` — 풀 이미지 배경 + 텍스트
-- **템플릿 B (Part Image)** — 이미지가 카드 일부를 차지
-  - 표지: `tpl-b-cover` — 이미지 영역 내 텍스트 오버레이
-  - 내용: `tpl-b-content` — 상단 이미지 + 하단 텍스트
+- **템플릿 A (Full Image)** — 이미지가 카드 전체를 채움, 비주얼 임팩트 극대화
+- **템플릿 B (Part Image)** — 이미지 + 텍스트 영역 분리, 가독성 우선
 
+카드 1은 항상 표지, 카드 2 이후는 항상 내용이다. 별도 카드 타입 지정 없이 **템플릿만 고르면 된다**.
 콘텐츠 성격에 따라 템플릿을 추천하고, 카드 수도 자체 판단.
 각 필드의 글자수 제한은 [references/card-specs.md](references/card-specs.md) 참조.
 
@@ -66,19 +63,15 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 - 줄바꿈은 `<br>` 태그 사용
 - **글자수 제한을 반드시 준수** — 작성 후 각 필드가 줄당 글자수 × 최대 줄 수 이내인지 검증
 
-핵심 글자수 요약:
+핵심 글자수 요약 (A/B 공통):
 
-| 카드 타입 | 필드 | 한 줄 최대 | 최대 줄 수 |
-|-----------|------|-----------|-----------|
-| tpl-a-cover | top-label | 19자 | 1 |
-| tpl-a-cover | title | 9자 | 2~3 |
-| tpl-a-cover | subtitle | 19자 | 1 |
-| tpl-a-content | title | 11자 | 1~2 |
-| tpl-a-content | body-text | 18자 | 2~3 |
-| tpl-b-cover | title | 9자 | 2~3 |
-| tpl-b-cover | subtitle | 19자 | 1 |
-| tpl-b-content | title | 11자 | 1~2 |
-| tpl-b-content | body-text | 18자 | 2~3 |
+| 카드 | 필드 | 한 줄 최대 | 최대 줄 수 | 비고 |
+|------|------|-----------|-----------|------|
+| 표지 | top-label | 19자 | 1 | 템플릿 A만 |
+| 표지 | title | 9자 | 2~3 | |
+| 표지 | subtitle | 19자 | 1 | |
+| 내용 | title | 11자 | 1~2 | |
+| 내용 | body-text | 18자 | 2~3 | |
 
 ### Step 4. 이미지 방향 지정
 
@@ -104,30 +97,31 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 
 ## Output 포맷
 
+> **중요**: 아래 포맷을 그대로 따른다. 카드 타입명을 임의로 만들지 않는다.
+
 ```markdown
 # Storyteller Plan: [주제]
 
 > Date: YYYY-MM-DD
 > Cards: N장 (표지 1 + 내용 N)
-> Template: [A (Full Image) / B (Part Image)]
-> Image Mode: [A~E 중 택 1]
+> Template: A (Full Image) 또는 B (Part Image)
+> Image Mode: A~E 중 택 1
 > Brand: [브랜드명]
 
 ---
 
-## Card 1 — 표지 (tpl-a-cover / tpl-b-cover)
+## Card 1 — 표지
 
-- **top-label**: [19자 이내] (tpl-a-cover만)
+- **top-label**: [19자 이내] (템플릿 A만)
 - **title**: [글자수 제한 내, <br>로 줄바꿈]
 - **subtitle**: [19자 이내]
 - **brand**: [브랜드명]
 - **image-concept**: "[장면/컨셉 한 줄 설명]"
 
-## Card 2 — 내용 (tpl-a-content / tpl-b-content)
+## Card 2 — 내용
 
 - **title**: [글자수 제한 내]
-- **body-text**: [글자수 제한 내, <br>로 줄바꿈] (tpl-a-content / tpl-b-content)
-- **subtitle**: [19자 이내] (tpl-b-cover만)
+- **body-text**: [글자수 제한 내, <br>로 줄바꿈]
 - **brand**: [브랜드명]
 - **image-concept**: "[장면/컨셉 한 줄 설명]"
 
@@ -139,8 +133,8 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 
 위 구성을 확인해주세요:
 1. 카드 수: N장
-2. 템플릿: [A / B]
-3. 이미지 모드: [A~E]
+2. 템플릿: A 또는 B
+3. 이미지 모드: A~E
 4. 각 카드 카피 & 이미지 컨셉
 
 수정할 부분이 있으면 말씀해주세요. 승인하시면 다음 단계로 넘어갑니다.
