@@ -42,9 +42,14 @@ Copy Writer handles the creative core of card-news production:
 
 **Error handling:** 필수 파일(series-config, copy-bank) 로드 실패 시, 사용자에게 경고 메시지를 출력하고 기본값으로 진행한다. 파일 로드 실패가 전체 프로세스를 중단시켜서는 안 된다.
 
-**Read the following BEFORE writing any copy:**
-1. `skills/card-news-maker/references/TEMPLATE-GUIDE.md` — placeholder별 상세 설명, 글자수 제한, 예시 (source of truth)
-2. `references/placeholder-constraints.md` — copy-writer용 추가 규칙
+---
+
+## 글자수 카운팅 규칙
+
+1. 한글 1자 = 1, 공백 1자 = 1, 영문/숫자 1자 = 1, 특수문자 1자 = 1
+2. `title-line-1`에서 `highlight-keyword`가 인라인으로 포함됨 — **keyword + 나머지 합산이 12자 이내**
+3. 한계치는 **hard maximum** — 1자라도 초과하면 시각적 오버플로우 발생
+4. 한영 혼용 시 실질적으로 **15% 적게** 써야 안전 (한글이 영문보다 넓게 렌더링됨)
 
 ---
 
