@@ -1,6 +1,6 @@
 ---
 name: storyteller-planner
-description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스 전체 구성을 기획하는 스킬. 콘텐츠 분석 → 카드 타입 결정 → 카드별 카피 작성 → 이미지 컨셉 지정 → 유저 승인까지 수행한다. 사용 시점: (1) 유저가 콘텐츠를 주며 카드뉴스로 만들어달라고 할 때, (2) storyteller 플러그인의 기획 단계를 실행할 때, (3) 카드뉴스 기획, 플래닝, storyteller plan 등의 요청이 있을 때."
+description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스 전체 구성을 기획하는 스킬. 콘텐츠 분석 → 템플릿 선택 → 카드별 카피 작성 → 이미지 컨셉 지정 → 유저 승인까지 수행한다. 사용 시점: (1) 유저가 콘텐츠를 주며 카드뉴스로 만들어달라고 할 때, (2) storyteller 플러그인의 기획 단계를 실행할 때, (3) 카드뉴스 기획, 플래닝, storyteller plan 등의 요청이 있을 때."
 ---
 
 # Storyteller Planner
@@ -15,17 +15,52 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 - 10~15개 카드로 나눌 수 있는 의미 단위로 분절
 - URL이 주어지면 콘텐츠를 먼저 가져온다
 
-### Step 2. 카드 구성 결정
+### Step 2. 템플릿 선택
 
-- **표지**(1장): 무조건 **card-gradient**
-- **내용**(10~15장): 한 세트는 **한 카드 타입으로 통일** — 아래 3가지 중 택 1
-  - `card-white` — 텍스트만, 빠른 제작
-  - `card-image-overlay` — 풀이미지 + 텍스트 오버레이, 비주얼 임팩트
-  - `card-image-top` — 상단 이미지 + 하단 텍스트, 이미지와 설명 모두 필요할 때
-- 콘텐츠 성격에 따라 내용 카드 타입을 추천하고, 카드 수도 자체 판단
-- 각 필드의 글자수 제한은 [references/card-specs.md](references/card-specs.md) 참조
+세트 전체에 사용할 템플릿을 **A 또는 B 중 택 1**:
+
+- **템플릿 A (Full Image)** — 이미지가 카드 전체를 채움
+  - 표지: `tpl-a-cover` — 풀 이미지 + 그라데이션 오버레이 + 타이틀 강조
+  - 내용: `tpl-a-content` — 풀 이미지 배경 + 텍스트
+- **템플릿 B (Part Image)** — 이미지가 카드 일부를 차지
+  - 표지: `tpl-b-cover` — 이미지 영역 내 텍스트 오버레이
+  - 내용: `tpl-b-content` — 상단 이미지 + 하단 텍스트
+
+콘텐츠 성격에 따라 템플릿을 추천하고, 카드 수도 자체 판단.
+각 필드의 글자수 제한은 [references/card-specs.md](references/card-specs.md) 참조.
 
 ### Step 3. 카드별 카피 작성
+
+#### 톤 가이드
+
+카드뉴스는 **뉴스레터**다. 논문이나 보도자료가 아니다.
+아래 원칙을 지켜 "읽고 싶은 글"을 만든다:
+
+- **말하듯 쓴다** — "~입니다" 대신 "~거든요", "~죠", "~인데요" 같은 구어체 종결을 섞는다
+- **한 카드 = 한 메시지** — 카드 하나에 핵심 하나만. 부연·예시·부가설명은 과감히 버린다
+- **짧게, 리듬감 있게** — 한 문장은 15자 내외를 기본으로. 긴 문장과 짧은 문장을 교차하면 읽기 좋다
+- **독자에게 말을 건다** — "혹시 이런 경험 있으세요?", "한번 생각해보세요" 같은 호흡
+- **딱딱한 표현 금지 목록**:
+  - ❌ "~하는 것이 중요합니다" → ✅ "~가 핵심이에요"
+  - ❌ "~라고 할 수 있습니다" → ✅ "~인 셈이죠"
+  - ❌ "~에 대해 알아보겠습니다" → ✅ "~를 한번 볼게요"
+  - ❌ "~하는 것으로 나타났습니다" → ✅ "~라는 거예요"
+  - ❌ "이에 따라/이를 통해" → ✅ 자연스러운 연결 ("그래서", "덕분에")
+
+#### 길이 원칙
+
+글자수 제한은 **상한선이지 목표가 아니다**. 꽉 채우지 않는다.
+
+- **title**: 임팩트 있는 한마디. 가능하면 1줄로 끝낸다
+- **body-text**: 2줄이면 충분한데 3줄로 늘리지 않는다. 여백이 디자인이다
+- **top-label / subtitle**: 보조 정보. 없어도 이해되는 수준이면 짧을수록 좋다
+
+카피 작성 후 셀프 체크:
+1. 소리내어 읽었을 때 자연스러운가?
+2. 한 카드에서 전달하려는 메시지가 하나인가?
+3. 빼도 의미가 통하는 단어가 있으면 뺐는가?
+
+#### 형식 규칙
 
 - 카드 타입에 맞는 텍스트 필드 작성
 - 줄바꿈은 `<br>` 태그 사용
@@ -35,28 +70,31 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 
 | 카드 타입 | 필드 | 한 줄 최대 | 최대 줄 수 |
 |-----------|------|-----------|-----------|
-| card-gradient | top-label | 19자 | 1 |
-| card-gradient | title | 9자 | 2~3 |
-| card-gradient | subtitle | 19자 | 1 |
-| card-white | title | 11자 | 1~2 |
-| card-white | body-text | 18자 | 2~3 |
-| card-image-overlay | title | 9자 | 2~3 |
-| card-image-overlay | subtitle | 19자 | 1 |
-| card-image-top | title | 11자 | 1~2 |
-| card-image-top | body-text | 18자 | 2~3 |
+| tpl-a-cover | top-label | 19자 | 1 |
+| tpl-a-cover | title | 9자 | 2~3 |
+| tpl-a-cover | subtitle | 19자 | 1 |
+| tpl-a-content | title | 11자 | 1~2 |
+| tpl-a-content | body-text | 18자 | 2~3 |
+| tpl-b-cover | title | 9자 | 2~3 |
+| tpl-b-cover | subtitle | 19자 | 1 |
+| tpl-b-content | title | 11자 | 1~2 |
+| tpl-b-content | body-text | 18자 | 2~3 |
 
 ### Step 4. 이미지 방향 지정
 
-내용 카드 타입이 **card-white**이면 이 단계 스킵.
+**모든 카드에 이미지가 필요하다** (표지 + 내용 모두).
 
-이미지가 필요한 카드(card-image-overlay, card-image-top)에 대해:
-- 이미지 모드 선택: **A (시네마틱)** 또는 **B (컨셉추얼)**
+각 카드에 대해:
+- 이미지 모드 선택: **A~E** 중 택 1 (세트 전체 통일)
 - 카드별 장면/컨셉 한 줄 설명 (`image-concept` 필드)
 - image-maker 스킬이 이 한 줄 설명을 구체적 프롬프트로 확장
 
 이미지 모드 요약:
-- **Mode A (시네마틱)**: 포토리얼, 사람 중심, 극적 자연광, 웜톤 빈티지
-- **Mode B (컨셉추얼)**: 메타포 오브젝트, 클린 스튜디오, 미니어처/디오라마, Wes Anderson 감성
+- **Mode A (시네마틱 빈티지)**: 포토리얼, 사람 중심, 극적 자연광, 웜톤 빈티지
+- **Mode B (컨셉추얼 메타포)**: 메타포 오브젝트, 클린 스튜디오, 미니어처/디오라마
+- **Mode C (에디토리얼 미니멀)**: 싱글 오브젝트, 밝고 에어리, 여백 활용
+- **Mode D (초현실 아트)**: 스케일 변환, 드림라이크, 풍부한 디테일
+- **Mode E (다크 시네마틱)**: 하이 콘트라스트, 누아르, 쿨톤
 
 상세 스펙은 [references/card-specs.md](references/card-specs.md) 참조.
 
@@ -71,26 +109,27 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 
 > Date: YYYY-MM-DD
 > Cards: N장 (표지 1 + 내용 N)
-> Content Card Type: [card-white / card-image-overlay / card-image-top]
-> Image Mode: [A (시네마틱) / B (컨셉추얼) / N/A]
+> Template: [A (Full Image) / B (Part Image)]
+> Image Mode: [A~E 중 택 1]
 > Brand: [브랜드명]
 
 ---
 
-## Card 1 — 표지 (card-gradient)
+## Card 1 — 표지 (tpl-a-cover / tpl-b-cover)
 
-- **top-label**: [19자 이내]
-- **title**: [9자×2~3줄, <br>로 줄바꿈]
+- **top-label**: [19자 이내] (tpl-a-cover만)
+- **title**: [글자수 제한 내, <br>로 줄바꿈]
 - **subtitle**: [19자 이내]
 - **brand**: [브랜드명]
+- **image-concept**: "[장면/컨셉 한 줄 설명]"
 
-## Card 2 — 내용 ([카드타입])
+## Card 2 — 내용 (tpl-a-content / tpl-b-content)
 
 - **title**: [글자수 제한 내]
-- **body-text**: [글자수 제한 내, <br>로 줄바꿈] (card-white/image-top만)
-- **subtitle**: [19자 이내] (card-image-overlay만)
+- **body-text**: [글자수 제한 내, <br>로 줄바꿈] (tpl-a-content / tpl-b-content)
+- **subtitle**: [19자 이내] (tpl-b-cover만)
 - **brand**: [브랜드명]
-- **image-concept**: "[장면/컨셉 한 줄 설명]" (이미지 카드만)
+- **image-concept**: "[장면/컨셉 한 줄 설명]"
 
 ...(반복)...
 
@@ -100,8 +139,8 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 
 위 구성을 확인해주세요:
 1. 카드 수: N장
-2. 내용 카드 타입: [타입]
-3. 이미지 모드: [모드]
+2. 템플릿: [A / B]
+3. 이미지 모드: [A~E]
 4. 각 카드 카피 & 이미지 컨셉
 
 수정할 부분이 있으면 말씀해주세요. 승인하시면 다음 단계로 넘어갑니다.
@@ -114,4 +153,4 @@ description: "콘텐츠(뉴스레터, 아티클, URL 등)를 받아 카드뉴스
 
 ## 참조 파일
 
-- [references/card-specs.md](references/card-specs.md) — 카드 타입별 텍스트 필드 상세 규격, 이미지 모드 상세, 카드 타입 선택 가이드
+- [references/card-specs.md](references/card-specs.md) — 카드 타입별 텍스트 필드 상세 규격, 이미지 모드 상세, 템플릿 선택 가이드
